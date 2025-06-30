@@ -6,7 +6,7 @@
 
 lvim.plugins = {
   {
-   'smoka7/hop.nvim',
+    'smoka7/hop.nvim',
     event = "BufRead",
     config = function()
       require("hop").setup()
@@ -47,7 +47,7 @@ lvim.plugins = {
     -- Optional dependencies
     -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-    config = function ()
+    config = function()
       CustomOilBar = function()
         local path = vim.fn.expand "%"
         path = path:gsub("oil://", "")
@@ -93,15 +93,15 @@ lvim.plugins = {
       vim.g.aurora_bold = 1
     end,
     config = function()
-        vim.cmd.colorscheme "aurora"
-        -- override defaults
-        vim.api.nvim_set_hl(0, '@number', {fg='#e933e3'})
+      vim.cmd.colorscheme "aurora"
+      -- override defaults
+      vim.api.nvim_set_hl(0, '@number', { fg = '#e933e3' })
     end
   },
   {
     'projekt0n/github-nvim-theme',
     name = 'github-theme',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup({
@@ -112,34 +112,36 @@ lvim.plugins = {
     end,
   },
   {
-  'everviolet/nvim', name = 'evergarden',
-  priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
-  opts = {
-    theme = {
-      variant = 'fall', -- 'winter'|'fall'|'spring'|'summer'
-      accent = 'green',
-    },
-    editor = {
-      transparent_background = false,
-      sign = { color = 'none' },
-      float = {
-        color = 'mantle',
-        invert_border = false,
+    'everviolet/nvim',
+    name = 'evergarden',
+    priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+    opts = {
+      theme = {
+        variant = 'fall', -- 'winter'|'fall'|'spring'|'summer'
+        accent = 'green',
       },
-      completion = {
-        color = 'surface0',
+      editor = {
+        transparent_background = false,
+        sign = { color = 'none' },
+        float = {
+          color = 'mantle',
+          invert_border = false,
+        },
+        completion = {
+          color = 'surface0',
+        },
       },
-    },
-  }
-},
-  { "nvim-treesitter/nvim-treesitter-angular" },
+    }
+  },
   {
     'Exafunction/codeium.vim',
-    config = function ()
+    config = function()
       -- Change '<C-g>' here to any keycode you like.
-      vim.keymap.set('i', '<C-g>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
-      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
+      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
+        { expr = true, silent = true })
+      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
+        { expr = true, silent = true })
       vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
     end
   },
@@ -159,8 +161,6 @@ lvim.transparent_window = true
 
 lvim.colorscheme = "evergarden"
 
-require("lvim.lsp.manager").setup("angularls")
-
 lvim.builtin.lualine.on_config_done = function(lualine)
   local config = lualine.get_config()
 
@@ -168,8 +168,8 @@ lvim.builtin.lualine.on_config_done = function(lualine)
   config.options.theme = "auto"
   config.options.component_separators = { left = '', right = '' }
   config.options.section_separators = { left = '', right = '' }
-  config.options.component_separators = { left = '', right = ''}
-  config.options.section_separators = { left = ' ', right = ' '}
+  config.options.component_separators = { left = '', right = '' }
+  config.options.section_separators = { left = ' ', right = ' ' }
 
   config.sections.lualine_c = {
     "diff",
@@ -189,7 +189,8 @@ lvim.builtin.lualine.on_config_done = function(lualine)
           msg = codeium
         end
         return msg
-      end, icon = " IA:",
+      end,
+      icon = " IA:",
     }
   }
 

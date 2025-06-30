@@ -1,0 +1,78 @@
+# ~/.config/starship.toml
+
+add_newline = true
+
+format = """
+[](bg:#2f383e fg:#2f383e)\
+$directory\
+[](fg:#2f383e bg:#3a454a)\
+$git_branch\
+$git_status\
+[](fg:#3a454a bg:#4a555a)\
+$nodejs\
+$rust\
+$python\
+$package\
+$docker_context\
+[](fg:#4a555a bg:#5a666b)\
+$cmd_duration\
+[](fg:#5a666b bg:#6a777c)\
+$jobs\
+[](fg:#5a666b bg:none) 
+$line_break\
+$character
+"""
+
+[directory]
+style = "bg:#2f383e fg:#a7c080"
+format = "[ $path on]($style)"
+truncation_length = 3
+truncation_symbol = "/"
+
+[git_branch]
+symbol = "🌱"
+style = "bg:#3a454a fg:#d3c6aa"
+format = "[ $symbol $branch ]($style)"
+
+[git_status]
+style = "bg:#3a454a fg:#e69875"
+format = "[ $all_status ]($style)"
+
+[nodejs]
+symbol = ""
+style = "bg:#4a555a fg:#83c092"
+format = "[ $symbol($version) ]($style) "
+
+[rust]
+symbol = "🦀"
+style = "bg:#4a555a fg:#e67e80"
+format = "[ $symbol($version) ]($style) "
+
+[python]
+symbol = "🐍"
+pyenv_version_name = true
+style = "bg:#4a555a fg:#d699b6"
+format = "[ $symbol$virtualenv ]($style)"
+
+[package]
+symbol = "📦"
+style = "bg:#4a555a fg:#d3c6aa"
+format = "[ $symbol$version ]($style) "
+
+[docker_context]
+symbol = "🐳"
+style = "bg:#4a555a fg:#83c092"
+format = "[ $symbol $context ]($style) "
+
+[cmd_duration]
+min_time = 2000
+style = "bg:#5a666b fg:#e67e80"
+format = "[ took $duration ]($style)"
+
+[jobs]
+symbol = "✦"
+style = "fg:#d699b6"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[✗](bold red)"
