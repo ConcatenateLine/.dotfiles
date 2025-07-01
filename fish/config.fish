@@ -6,6 +6,8 @@ end
 
 set -gx PATH /home/ubuntuuser/.local/bin $PATH
 set -gx PATH /opt/nvim-linux-x86_64/bin $PATH
+set -gx PATH /usr/local/go/bin $PATH
+set -gx PATH ~/go/bin $PATH
 
 starship init fish | source
 
