@@ -26,7 +26,8 @@ lvim.plugins = {
   },
   {
     "folke/trouble.nvim",
-    cmd = "TroubleToggle",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
   },
   {
     "folke/todo-comments.nvim",
@@ -164,17 +165,43 @@ lvim.plugins = {
     keys = {
       { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     }
-  }
+  },
+  {
+    "nvim-telescope/telescope-fzy-native.nvim",
+    build = "make",
+    event = "BufRead",
+  },
+  {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- or if using mini.icons/mini.nvim
+    -- dependencies = { "echasnovski/mini.icons" },
+    opts = {}
+  },
+  -- Replace experience in Nvim
+  {
+    "AckslD/muren.nvim",
+    config = function()
+      require("muren").setup()
+    end
+  },
+ }
+
+lvim.builtin.which_key.mappings["r"] = {
+  name = "Replace",
+  n = { "<cmd>lua require('muren.api').toggle_ui()<cr>", "Toggle muren UI" },
+  f = { "<cmd>lua require('muren.api').open_fresh_ui()<cr>", "Open fresh muren UI" },
 }
 
 lvim.builtin.which_key.mappings["t"] = {
   name = "Diagnostics",
-  t = { "<cmd>TroubleToggle<cr>", "trouble" },
-  w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
-  d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
-  q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
-  l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
-  r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
+  t = { "<cmd>Trouble diagnostics toggle<cr>", "Diagnostics (Trouble)" },
+  b = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Buffer Diagnostics (Trouble)" },
+  s = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)" },
+  r = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Definitions / references/ ... (Trouble)" },
+  l = { "<cmd>Trouble loclist toggle<cr>", "Location list (Trouble)" },
+  q = { "<cmd>Trouble qflist toggle<cr>", "Quickfix List (Trouble)" },
 }
 
 lvim.transparent_window = true
@@ -220,3 +247,35 @@ lvim.builtin.lualine.on_config_done = function(lualine)
 
   lualine.setup(config)
 end
+
+lvim.autocommands = {
+  {
+    "BufDelete",
+    {
+      pattern = "*",
+      callback = function()
+        vim.schedule(function()
+          local api = vim.api
+          local listed = vim.tbl_filter(function(buf)
+            return api.nvim_buf_is_valid(buf)
+                and vim.bo[buf].buflisted
+                and api.nvim_buf_get_name(buf) ~= ""
+          end, api.nvim_list_bufs())
+
+          if #listed == 0 then
+            vim.cmd("Alpha")
+          end
+        end)
+      end,
+    },
+  },
+}
+
+-- Auto launch Alpha dasboard if no file is opened
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  callback = function()
+    if vim.fn.argc() == 0 then require("alpha").start() end
+  end,
+})
+
