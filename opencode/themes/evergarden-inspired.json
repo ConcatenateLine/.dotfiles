@@ -1,0 +1,245 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "bg": "#1C1F1A",
+    "panel": "#253429",
+    "element": "#2A3327",
+    "offWhite": "#E9F5EA",
+    "sage": "#A3C9A8",
+    "peachBlossom": "#F2D5C4",
+    "terracotta": "#C97C5D",
+    "olive": "#88B04B",
+    "mistGray": "#B5BFA1",
+    "mistDark": "#6F7C75",
+    "paleGlow": "#DCE2AA",
+    "selection": "#6F7C7525",
+    "diffBgDark": "#1A251D",
+    "diffBgLight": "#E8F4EC"
+  },
+  "theme": {
+    "primary": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "secondary": {
+      "dark": "peachBlossom",
+      "light": "peachBlossom"
+    },
+    "accent": {
+      "dark": "paleGlow",
+      "light": "paleGlow"
+    },
+    "error": {
+      "dark": "terracotta",
+      "light": "terracotta"
+    },
+    "warning": {
+      "dark": "paleGlow",
+      "light": "paleGlow"
+    },
+    "success": {
+      "dark": "olive",
+      "light": "olive"
+    },
+    "info": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "text": {
+      "dark": "offWhite",
+      "light": "mistGray"
+    },
+    "textMuted": {
+      "dark": "mistDark",
+      "light": "mistDark"
+    },
+    "background": {
+      "dark": "bg",
+      "light": "offWhite"
+    },
+    "backgroundPanel": {
+      "dark": "panel",
+      "light": "sage"
+    },
+    "backgroundElement": {
+      "dark": "element",
+      "light": "mistGray"
+    },
+    "border": {
+      "dark": "olive",
+      "light": "mistDark"
+    },
+    "borderActive": {
+      "dark": "sage",
+      "light": "peachBlossom"
+    },
+    "borderSubtle": {
+      "dark": "mistDark",
+      "light": "olive"
+    },
+    "diffAdded": {
+      "dark": "olive",
+      "light": "olive"
+    },
+    "diffRemoved": {
+      "dark": "terracotta",
+      "light": "terracotta"
+    },
+    "diffContext": {
+      "dark": "mistDark",
+      "light": "mistDark"
+    },
+    "diffHunkHeader": {
+      "dark": "mistDark",
+      "light": "mistDark"
+    },
+    "diffHighlightAdded": {
+      "dark": "olive",
+      "light": "olive"
+    },
+    "diffHighlightRemoved": {
+      "dark": "terracotta",
+      "light": "terracotta"
+    },
+    "diffAddedBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffRemovedBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffContextBg": {
+      "dark": "panel",
+      "light": "sage"
+    },
+    "diffLineNumber": {
+      "dark": "mistDark",
+      "light": "mistGray"
+    },
+    "diffAddedLineNumberBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffRemovedLineNumberBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "markdownText": {
+      "dark": "offWhite",
+      "light": "mistGray"
+    },
+    "markdownHeading": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "markdownLink": {
+      "dark": "olive",
+      "light": "olive"
+    },
+    "markdownLinkText": {
+      "dark": "peachBlossom",
+      "light": "peachBlossom"
+    },
+    "markdownCode": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "markdownBlockQuote": {
+      "dark": "mistDark",
+      "light": "mistDark"
+    },
+    "markdownEmph": {
+      "dark": "peachBlossom",
+      "light": "peachBlossom"
+    },
+    "markdownStrong": {
+      "dark": "paleGlow",
+      "light": "paleGlow"
+    },
+    "markdownHorizontalRule": {
+      "dark": "mistDark",
+      "light": "mistDark"
+    },
+    "markdownListItem": {
+      "dark": "olive",
+      "light": "olive"
+    },
+    "markdownListEnumeration": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "markdownImage": {
+      "dark": "peachBlossom",
+      "light": "peachBlossom"
+    },
+    "markdownImageText": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "markdownCodeBlock": {
+      "dark": "mistGray",
+      "light": "mistGray"
+    },
+    "syntaxComment": {
+      "dark": "mistDark",
+      "light": "mistDark"
+    },
+    "syntaxKeyword": {
+      "dark": "olive",
+      "light": "olive"
+    },
+    "syntaxFunction": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "syntaxVariable": {
+      "dark": "peachBlossom",
+      "light": "peachBlossom"
+    },
+    "syntaxString": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "syntaxNumber": {
+      "dark": "terracotta",
+      "light": "terracotta"
+    },
+    "syntaxType": {
+      "dark": "olive",
+      "light": "olive"
+    },
+    "syntaxOperator": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "syntaxPunctuation": {
+      "dark": "mistGray",
+      "light": "mistGray"
+    },
+    "inputBackground": {
+      "dark": "bg",
+      "light": "offWhite"
+    },
+    "InputBorder": {
+      "dark": "sage",
+      "light": "sage"
+    },
+    "InputBorderActive": {
+      "dark": "paleGlow",
+      "light": "paleGlow"
+    },
+    "inputPrompt": {
+      "dark": "peachBlossom",
+      "light": "peachBlossom"
+    },
+    "inputCursor": {
+      "dark": "olive",
+      "light": "olive"
+    },
+    "inputText": {
+      "dark": "offWhite",
+      "light": "mistGray"
+    }
+  }
+}

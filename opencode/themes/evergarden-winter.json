@@ -1,0 +1,261 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "bgDark": "#1a2024",
+    "bgBase": "#0E1012",
+    "bgSurface0": "#2e383d",
+    "bgSurface1": "#3d484d",
+    "bgSurface2": "#4c5760",
+    "fgText": "#e5dfc8",
+    "fgSubtext0": "#d3c6aa",
+    "fgSubtext1": "#b0bcb3",
+    "fgOverlay0": "#5a6268",
+    "red": "#f2a0a3",
+    "orange": "#fca5a5",
+    "yellow": "#e9d5a1",
+    "lime": "#b4d89f",
+    "green": "#83c092",
+    "aqua": "#9dd9ad",
+    "blue": "#99cec7",
+    "purple": "#e5b5d1",
+    "pink": "#d699b6",
+    "brightRed": "#ffbac0",
+    "brightGreen": "#c9e5b0",
+    "brightYellow": "#f5e6ba",
+    "brightBlue": "#b3e0db",
+    "brightPurple": "#f2cfdf",
+    "brightCyan": "#b8f0c8",
+    "brightWhite": "#f5f0e0",
+    "selection": "#3d484d",
+    "diffBgDark": "#1a2024",
+    "diffBgAdded": "#83c09220",
+    "diffBgRemoved": "#f2a0a320"
+  },
+  "theme": {
+    "primary": {
+      "dark": "aqua",
+      "light": "green"
+    },
+    "secondary": {
+      "dark": "blue",
+      "light": "blue"
+    },
+    "accent": {
+      "dark": "yellow",
+      "light": "yellow"
+    },
+    "error": {
+      "dark": "red",
+      "light": "red"
+    },
+    "warning": {
+      "dark": "yellow",
+      "light": "yellow"
+    },
+    "success": {
+      "dark": "lime",
+      "light": "lime"
+    },
+    "info": {
+      "dark": "blue",
+      "light": "blue"
+    },
+    "text": {
+      "dark": "fgText",
+      "light": "fgOverlay0"
+    },
+    "textMuted": {
+      "dark": "fgSubtext1",
+      "light": "fgSubtext1"
+    },
+    "background": {
+      "dark": "bgBase",
+      "light": "fgText"
+    },
+    "backgroundPanel": {
+      "dark": "bgDark",
+      "light": "fgSubtext0"
+    },
+    "backgroundElement": {
+      "dark": "bgSurface0",
+      "light": "fgSubtext1"
+    },
+    "border": {
+      "dark": "green",
+      "light": "fgOverlay0"
+    },
+    "borderActive": {
+      "dark": "aqua",
+      "light": "blue"
+    },
+    "borderSubtle": {
+      "dark": "fgOverlay0",
+      "light": "fgSubtext1"
+    },
+    "diffAdded": {
+      "dark": "lime",
+      "light": "lime"
+    },
+    "diffRemoved": {
+      "dark": "red",
+      "light": "red"
+    },
+    "diffContext": {
+      "dark": "fgSubtext1",
+      "light": "fgSubtext1"
+    },
+    "diffHunkHeader": {
+      "dark": "fgOverlay0",
+      "light": "fgOverlay0"
+    },
+    "diffHighlightAdded": {
+      "dark": "brightGreen",
+      "light": "brightGreen"
+    },
+    "diffHighlightRemoved": {
+      "dark": "brightRed",
+      "light": "brightRed"
+    },
+    "diffAddedBg": {
+      "dark": "diffBgAdded",
+      "light": "diffBgAdded"
+    },
+    "diffRemovedBg": {
+      "dark": "diffBgRemoved",
+      "light": "diffBgRemoved"
+    },
+    "diffContextBg": {
+      "dark": "bgDark",
+      "light": "fgSubtext0"
+    },
+    "diffLineNumber": {
+      "dark": "fgOverlay0",
+      "light": "fgOverlay0"
+    },
+    "diffAddedLineNumberBg": {
+      "dark": "diffBgAdded",
+      "light": "diffBgAdded"
+    },
+    "diffRemovedLineNumberBg": {
+      "dark": "diffBgRemoved",
+      "light": "diffBgRemoved"
+    },
+    "markdownText": {
+      "dark": "fgText",
+      "light": "fgOverlay0"
+    },
+    "markdownHeading": {
+      "dark": "red",
+      "light": "red"
+    },
+    "markdownLink": {
+      "dark": "blue",
+      "light": "blue"
+    },
+    "markdownLinkText": {
+      "dark": "aqua",
+      "light": "aqua"
+    },
+    "markdownCode": {
+      "dark": "lime",
+      "light": "lime"
+    },
+    "markdownBlockQuote": {
+      "dark": "fgSubtext1",
+      "light": "fgSubtext1"
+    },
+    "markdownEmph": {
+      "dark": "purple",
+      "light": "purple"
+    },
+    "markdownStrong": {
+      "dark": "yellow",
+      "light": "yellow"
+    },
+    "markdownHorizontalRule": {
+      "dark": "fgOverlay0",
+      "light": "fgOverlay0"
+    },
+    "markdownListItem": {
+      "dark": "lime",
+      "light": "lime"
+    },
+    "markdownListEnumeration": {
+      "dark": "blue",
+      "light": "blue"
+    },
+    "markdownImage": {
+      "dark": "purple",
+      "light": "purple"
+    },
+    "markdownImageText": {
+      "dark": "aqua",
+      "light": "aqua"
+    },
+    "markdownCodeBlock": {
+      "dark": "fgSubtext0",
+      "light": "fgSubtext0"
+    },
+    "syntaxComment": {
+      "dark": "fgOverlay0",
+      "light": "fgOverlay0"
+    },
+    "syntaxKeyword": {
+      "dark": "red",
+      "light": "red"
+    },
+    "syntaxFunction": {
+      "dark": "blue",
+      "light": "blue"
+    },
+    "syntaxVariable": {
+      "dark": "fgText",
+      "light": "fgOverlay0"
+    },
+    "syntaxString": {
+      "dark": "lime",
+      "light": "lime"
+    },
+    "syntaxNumber": {
+      "dark": "yellow",
+      "light": "yellow"
+    },
+    "syntaxType": {
+      "dark": "yellow",
+      "light": "yellow"
+    },
+    "syntaxOperator": {
+      "dark": "blue",
+      "light": "blue"
+    },
+    "syntaxPunctuation": {
+      "dark": "fgSubtext1",
+      "light": "fgSubtext1"
+    },
+    "inputBackground": {
+      "dark": "bgSurface0",
+      "light": "fgText"
+    },
+    "InputBorder": {
+      "dark": "green",
+      "light": "green"
+    },
+    "InputBorderActive": {
+      "dark": "aqua",
+      "light": "aqua"
+    },
+    "inputPrompt": {
+      "dark": "blue",
+      "light": "blue"
+    },
+    "inputCursor": {
+      "dark": "aqua",
+      "light": "green"
+    },
+    "inputText": {
+      "dark": "fgText",
+      "light": "fgOverlay0"
+    }
+  }
+}
+

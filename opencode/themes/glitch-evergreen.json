@@ -1,0 +1,249 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "bg": "#253429",
+    "panel": "#172019",
+    "element": "#1c2a21",
+    "offWhite": "#e9f5ea",
+    "evergreen": "#5fb87a",
+    "acidLime": "#b2ff4d",
+    "pine": "#2e6040",
+    "moss": "#7aa684",
+    "gray": "#a9b6ad",
+    "grayDark": "#6f7c75",
+    "blueHint": "#87b7a9",
+    "redCoal": "#d65a6f",
+    "pinkFrost": "#e78fb0",
+    "goldTinsel": "#ffe68a",
+    "turquoise": "#3fd7b3",
+    "selection": "#6f7c7525",
+    "diffBgDark": "#1a251d",
+    "diffBgLight": "#e8f4ec"
+  },
+  "theme": {
+    "primary": {
+      "dark": "acidLime",
+      "light": "acidLime"
+    },
+    "secondary": {
+      "dark": "blueHint",
+      "light": "blueHint"
+    },
+    "accent": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "error": {
+      "dark": "redCoal",
+      "light": "redCoal"
+    },
+    "warning": {
+      "dark": "goldTinsel",
+      "light": "goldTinsel"
+    },
+    "success": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "info": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "text": {
+      "dark": "offWhite",
+      "light": "gray"
+    },
+    "textMuted": {
+      "dark": "grayDark",
+      "light": "grayDark"
+    },
+    "background": {
+      "dark": "bg",
+      "light": "offWhite"
+    },
+    "backgroundPanel": {
+      "dark": "panel",
+      "light": "moss"
+    },
+    "backgroundElement": {
+      "dark": "element",
+      "light": "gray"
+    },
+    "border": {
+      "dark": "pine",
+      "light": "grayDark"
+    },
+    "borderActive": {
+      "dark": "evergreen",
+      "light": "blueHint"
+    },
+    "borderSubtle": {
+      "dark": "grayDark",
+      "light": "pine"
+    },
+    "diffAdded": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "diffRemoved": {
+      "dark": "redCoal",
+      "light": "redCoal"
+    },
+    "diffContext": {
+      "dark": "grayDark",
+      "light": "grayDark"
+    },
+    "diffHunkHeader": {
+      "dark": "grayDark",
+      "light": "grayDark"
+    },
+    "diffHighlightAdded": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "diffHighlightRemoved": {
+      "dark": "redCoal",
+      "light": "redCoal"
+    },
+    "diffAddedBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffRemovedBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffContextBg": {
+      "dark": "panel",
+      "light": "moss"
+    },
+    "diffLineNumber": {
+      "dark": "grayDark",
+      "light": "gray"
+    },
+    "diffAddedLineNumberBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffRemovedLineNumberBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "markdownText": {
+      "dark": "offWhite",
+      "light": "gray"
+    },
+    "markdownHeading": {
+      "dark": "acidLime",
+      "light": "acidLime"
+    },
+    "markdownLink": {
+      "dark": "blueHint",
+      "light": "blueHint"
+    },
+    "markdownLinkText": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "markdownCode": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "markdownBlockQuote": {
+      "dark": "grayDark",
+      "light": "grayDark"
+    },
+    "markdownEmph": {
+      "dark": "pinkFrost",
+      "light": "pinkFrost"
+    },
+    "markdownStrong": {
+      "dark": "goldTinsel",
+      "light": "goldTinsel"
+    },
+    "markdownHorizontalRule": {
+      "dark": "grayDark",
+      "light": "grayDark"
+    },
+    "markdownListItem": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "markdownListEnumeration": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "markdownImage": {
+      "dark": "blueHint",
+      "light": "blueHint"
+    },
+    "markdownImageText": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "markdownCodeBlock": {
+      "dark": "gray",
+      "light": "gray"
+    },
+    "syntaxComment": {
+      "dark": "grayDark",
+      "light": "grayDark"
+    },
+    "syntaxKeyword": {
+      "dark": "blueHint",
+      "light": "blueHint"
+    },
+    "syntaxFunction": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "syntaxVariable": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "syntaxString": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "syntaxNumber": {
+      "dark": "pinkFrost",
+      "light": "pinkFrost"
+    },
+    "syntaxType": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "syntaxOperator": {
+      "dark": "blueHint",
+      "light": "blueHint"
+    },
+    "syntaxPunctuation": {
+      "dark": "gray",
+      "light": "gray"
+    },
+    "inputBackground": {
+      "dark": "bg",
+      "light": "offWhite"
+    },
+    "InputBorder": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "InputBorderActive": {
+      "dark": "acidLime",
+      "light": "acidLime"
+    },
+    "inputPrompt": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "inputCursor": {
+      "dark": "evergreen",
+      "light": "evergreen"
+    },
+    "inputText": {
+      "dark": "offWhite",
+      "light": "gray"
+    }
+  }
+}

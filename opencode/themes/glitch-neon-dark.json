@@ -1,0 +1,254 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "bg": "#0c0f14",
+    "panel": "#141922",
+    "element": "#1a2030",
+    "offWhite": "#e6f2ff",
+    "muted": "#8aa0b8",
+    "mutedDarker": "#5f6e83",
+    "bluishGray": "#6c84a3",
+    "border": "#2a3444",
+    "borderActive": "#4c5e7a",
+    "turquoise": "#00e6c3",
+    "mint": "#4df2c1",
+    "mintLow": "#3bc4a1",
+    "blue": "#8fd3ff",
+    "blueLow": "#7bc9ff",
+    "desatBlue": "#90b6d8",
+    "pink": "#ff75d1",
+    "hotRed": "#ff4f8a",
+    "yellow": "#fff59a",
+    "selection": "#5f6e8325",
+    "white": "#ffffff",
+    "black": "#000000",
+    "diffBgDark": "#1b2131",
+    "diffBgLight": "#eaf4ff"
+  },
+  "theme": {
+    "primary": {
+      "dark": "mint",
+      "light": "mint"
+    },
+    "secondary": {
+      "dark": "desatBlue",
+      "light": "desatBlue"
+    },
+    "accent": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "error": {
+      "dark": "hotRed",
+      "light": "hotRed"
+    },
+    "warning": {
+      "dark": "yellow",
+      "light": "yellow"
+    },
+    "success": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "info": {
+      "dark": "mint",
+      "light": "mint"
+    },
+    "text": {
+      "dark": "offWhite",
+      "light": "bluishGray"
+    },
+    "textMuted": {
+      "dark": "mutedDarker",
+      "light": "bluishGray"
+    },
+    "background": {
+      "dark": "bg",
+      "light": "offWhite"
+    },
+    "backgroundPanel": {
+      "dark": "panel",
+      "light": "bluishGray"
+    },
+    "backgroundElement": {
+      "dark": "element",
+      "light": "muted"
+    },
+    "border": {
+      "dark": "border",
+      "light": "mutedDarker"
+    },
+    "borderActive": {
+      "dark": "borderActive",
+      "light": "bluishGray"
+    },
+    "borderSubtle": {
+      "dark": "bluishGray",
+      "light": "border"
+    },
+    "diffAdded": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "diffRemoved": {
+      "dark": "hotRed",
+      "light": "hotRed"
+    },
+    "diffContext": {
+      "dark": "mutedDarker",
+      "light": "mutedDarker"
+    },
+    "diffHunkHeader": {
+      "dark": "mutedDarker",
+      "light": "mutedDarker"
+    },
+    "diffHighlightAdded": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "diffHighlightRemoved": {
+      "dark": "hotRed",
+      "light": "hotRed"
+    },
+    "diffAddedBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffRemovedBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffContextBg": {
+      "dark": "panel",
+      "light": "bluishGray"
+    },
+    "diffLineNumber": {
+      "dark": "bluishGray",
+      "light": "muted"
+    },
+    "diffAddedLineNumberBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "diffRemovedLineNumberBg": {
+      "dark": "diffBgDark",
+      "light": "diffBgLight"
+    },
+    "markdownText": {
+      "dark": "offWhite",
+      "light": "bluishGray"
+    },
+    "markdownHeading": {
+      "dark": "mint",
+      "light": "mint"
+    },
+    "markdownLink": {
+      "dark": "desatBlue",
+      "light": "desatBlue"
+    },
+    "markdownLinkText": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "markdownCode": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "markdownBlockQuote": {
+      "dark": "mutedDarker",
+      "light": "mutedDarker"
+    },
+    "markdownEmph": {
+      "dark": "pink",
+      "light": "pink"
+    },
+    "markdownStrong": {
+      "dark": "yellow",
+      "light": "yellow"
+    },
+    "markdownHorizontalRule": {
+      "dark": "mutedDarker",
+      "light": "mutedDarker"
+    },
+    "markdownListItem": {
+      "dark": "mint",
+      "light": "mint"
+    },
+    "markdownListEnumeration": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "markdownImage": {
+      "dark": "desatBlue",
+      "light": "desatBlue"
+    },
+    "markdownImageText": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "markdownCodeBlock": {
+      "dark": "muted",
+      "light": "bluishGray"
+    },
+    "syntaxComment": {
+      "dark": "mutedDarker",
+      "light": "mutedDarker"
+    },
+    "syntaxKeyword": {
+      "dark": "desatBlue",
+      "light": "desatBlue"
+    },
+    "syntaxFunction": {
+      "dark": "mint",
+      "light": "mint"
+    },
+    "syntaxVariable": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "syntaxString": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "syntaxNumber": {
+      "dark": "pink",
+      "light": "pink"
+    },
+    "syntaxType": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "syntaxOperator": {
+      "dark": "desatBlue",
+      "light": "desatBlue"
+    },
+    "syntaxPunctuation": {
+      "dark": "muted",
+      "light": "bluishGray"
+    },
+    "inputBackground": {
+      "dark": "bg",
+      "light": "offWhite"
+    },
+    "InputBorder": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "InputBorderActive": {
+      "dark": "mintLow",
+      "light": "mintLow"
+    },
+    "inputPrompt": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "inputCursor": {
+      "dark": "turquoise",
+      "light": "turquoise"
+    },
+    "inputText": {
+      "dark": "offWhite",
+      "light": "bluishGray"
+    }
+  }
+}
