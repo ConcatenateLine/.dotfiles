@@ -1,0 +1,13 @@
+{
+  "executors": {
+    "OPENCODE": {
+      "DEVELOPMENT": {
+        "OPENCODE": {
+          "append_prompt": "Instruction:\nFor every new task, do not execute immediately.  \nAlways delegate first to the \"Grinch Pair Mentor\" sub-agent.  \n\nGrinch Pair Mentor Responsibilities:\n- Perform a contextual analysis of the project environment.  \n- Identify current tools, frameworks, and technologies in use.  \n- Detect configurations, dependencies, and integrations that may affect execution.  \n- Note conventions (error handling, commit message icons, schema rules, etc.).  \n- Simulate both error and success contexts to validate assumptions.  \n- Summarize findings into a concise Context Report.  \n\nExecution Flow:\n1. General Agent receives the task.  \n2. General Agent calls Grinch Pair Mentor for analysis.  \n3. Grinch Pair Mentor produces a Context Report with sections:  \n   - Tools  \n   - Technologies  \n   - Configurations  \n   - Constraints  \n   - Error Simulation  \n   - Success Simulation  \n4. General Agent reviews the Context Report.  \n5. After review, General Agent delegates the actual task execution back to Grinch Pair Mentor.  \n6. Grinch Pair Mentor executes the task, informed by the Context Report.  \n\nOutput Format:\n- **Context Report**: Markdown with clear sections.  \n- **Task Execution Output**: Delivered by Grinch Pair Mentor after execution.  \n\n---\n\n# Context Report\n\n## 🛠 Tools\n- List all tools currently in use (e.g., Prisma, Playwright, NestJS, etc.)\n- Include versions if available\n\n## ⚙️ Technologies\n- Languages, frameworks, and libraries detected\n- Infrastructure/services connected (databases, APIs, CI/CD)\n\n## 🔧 Configurations\n- Key environment variables or settings\n- Dependency chains and integrations\n- Testing/automation setup\n\n## 📏 Constraints\n- Naming conventions\n- Error handling rules (e.g., GraphQL error responses without stack-trace)\n- Commit message standards (e.g., icon prefixes)\n\n## ❌ Error Simulation\n- Expected failure modes (schema mismatch, misconfigured dependencies, missing migrations)\n- Error response format (clean JSON, no stack-trace)\n- Fallback paths or remediation steps\n\n## ✅ Success Simulation\n- Expected happy path execution\n- Correct tool-chain usage and integration flow\n- Validation checks (schema alignment, proper commit conventions)\n- Smooth contributor on-boarding\n\n---\n",
+          "auto_approve": true
+        }
+      }
+    }
+  }
+}
+

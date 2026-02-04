@@ -1,0 +1,67 @@
+{
+  "mcpServers": {
+    "context7": {
+      "serverUrl": "https://mcp.context7.com/mcp"
+    },
+    "deepwiki": {
+      "serverUrl": "https://mcp.deepwiki.com/sse"
+    },
+    "filesystem": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/ubuntuuser/"
+      ],
+      "command": "npx",
+      "disabled": false
+    },
+    "git": {
+      "args": [
+        "mcp-server-git"
+      ],
+      "command": "uvx",
+      "disabled": false,
+      "env": {}
+    },
+    "memory": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "command": "npx",
+      "disabled": false,
+      "env": {
+        "MEMORY_FILE_PATH": ""
+      }
+    },
+    "prisma-mcp-server": {
+      "args": [
+        "-y",
+        "prisma",
+        "mcp"
+      ],
+      "command": "npx",
+      "disabled": true,
+      "env": {}
+    },
+    "sequential-thinking": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "command": "npx",
+      "disabled": false,
+      "env": {}
+    },
+    "vitest": {
+      "args": [
+        "-y",
+        "@djankies/vitest-mcp"
+      ],
+      "command": "npx",
+      "disabled": true,
+      "env": {}
+    }
+  }
+}
+

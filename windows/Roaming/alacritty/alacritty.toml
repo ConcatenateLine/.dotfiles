@@ -1,0 +1,181 @@
+# Alacritty configuration (Windows)
+# Generated on 2026-02-01
+
+[general]
+live_config_reload = true
+
+[window]
+title = "Alacritty"
+dynamic_title = true
+decorations = "Full"
+opacity = 0.95
+blur = true
+padding = { x = 8, y = 8 }
+startup_mode = "Maximized"
+
+[font]
+    size = 12.5
+    
+
+    [font.bold]
+        family = "JetBrainsMono NF"
+        style  = "Bold"
+
+    [font.bold_italic]
+        family = "JetBrainsMono NF"
+        style  = "Bold Italic"
+
+    [font.italic]
+        family = "JetBrainsMono NF"
+        style  = "Italic"
+
+    [font.normal]
+        family = "JetBrainsMono NF"
+        style  = "Regular"
+
+    [font.offset]
+        x = 0
+        y = 2
+
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[terminal.shell]
+program = "C:\\Windows\\System32\\wsl.exe"
+# Launches your default WSL distro. To target Ubuntu explicitly, uncomment one of the lines below:
+# args = ["-d", "Ubuntu"]
+args = ["-d", "Ubuntu", "--cd", "~"]
+
+[env]
+TERM = "xterm-256color"
+
+# ============================================================================
+# MOUSE
+# ============================================================================
+[mouse]
+# If this is true, the cursor is temporarily hidden when typing
+hide_when_typing = true
+
+# ============================================================================
+# BELL
+# ============================================================================
+[bell]
+# Visual bell animation
+animation = "EaseOutExpo"
+duration = 0
+color = "#e5dfc8"
+
+# ============================================================================
+# SELECTION
+# ============================================================================
+[selection]
+# This string contains all characters that are used as separators for "semantic words" in Alacritty
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\\t"
+
+# When set to true, selected text will be copied to the primary clipboard
+save_to_clipboard = false
+
+# ============================================================================
+# KEYBOARD HINTS
+# ============================================================================
+[hints]
+# Keys used for the hint labels
+alphabet = "jfkdls;ahgurieowpq"
+
+# ============================================================================
+# EVERGARDEN WINTER COLOR SCHEME
+# ============================================================================
+[colors]
+# Primary colors (matching WezTerm theme)
+[colors.primary]
+background = "#0E1012"  # Darker base for better contrast
+foreground = "#e5dfc8"  # Brighter warm beige for readability
+dim_foreground = "#b0bcb3"
+
+# Cursor colors
+[colors.cursor]
+text = "#232a2e"
+cursor = "#9dd9ad"  # Bright aqua/green
+
+# Vi mode cursor
+[colors.vi_mode_cursor]
+text = "#232a2e"
+cursor = "#9dd9ad"
+
+# Search colors
+[colors.search.matches]
+foreground = "#232a2e"
+background = "#e9d5a1"
+
+[colors.search.focused_match]
+foreground = "#232a2e"
+background = "#83c092"
+
+# Selection colors
+[colors.selection]
+text = "#e5dfc8"
+background = "#3d484d"
+
+# Normal colors (matching WezTerm ANSI colors)
+[colors.normal]
+black   = "#3d484d"
+red     = "#f2a0a3"
+green   = "#b4d89f"
+yellow  = "#e9d5a1"
+blue    = "#99cec7"
+magenta = "#e5b5d1"
+cyan    = "#9dd9ad"
+white   = "#e5dfc8"
+
+# Bright colors (matching WezTerm bright ANSI colors)
+[colors.bright]
+black   = "#5a6268"
+red     = "#ffbac0"
+green   = "#c9e5b0"
+yellow  = "#f5e6ba"
+blue    = "#b3e0db"
+magenta = "#f2cfdf"
+cyan    = "#b8f0c8"
+white   = "#f5f0e0"
+
+# Dim colors (optional, for when text is dimmed)
+[colors.dim]
+black   = "#2e383d"
+red     = "#e67e80"
+green   = "#a7c080"
+yellow  = "#dbbc7f"
+blue    = "#7fbbb3"
+magenta = "#d699b6"
+cyan    = "#83c092"
+white   = "#d3c6aa"
+
+# ============================================================================
+# CURSOR
+# ============================================================================
+[cursor]
+# Cursor style
+style.shape = "Block"
+style.blinking = "On"
+
+# Blink interval (milliseconds)
+blink_interval = 700
+
+# Cursor thickness (for beam/underline shapes)
+thickness = 0.15
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "Insert", mods = "Shift", action = "PasteSelection" },
+  { key = "Enter", mods = "Alt", action = "ToggleFullscreen" },
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+  { key = "Equals", mods = "Control", action = "IncreaseFontSize" },
+  { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+  { key = "Key0", mods = "Control", action = "ResetFontSize" }
+]
+
+[terminal]
+
