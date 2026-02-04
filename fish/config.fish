@@ -34,3 +34,16 @@ source $HOME/.venvs/lvim/bin/activate.fish
 
 # Add Node.js to PATH (at the end to ensure it's not overridden)
 set -gx PATH /home/ubuntuuser/.nvm/versions/node/v22.17.0/bin $PATH
+
+set -x DONT_PROMPT_WSL_INSTALL 1
+
+string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+
+/home/ubuntuuser/.local/bin/mise activate fish | source
+
+# opencode
+fish_add_path /home/ubuntuuser/.opencode/bin
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
