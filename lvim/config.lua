@@ -6,6 +6,12 @@
 
 lvim.plugins = {
   {
+    "ellisonleao/glow.nvim",
+    config = true,
+    cmd = "Glow"
+  },
+  { "nvim-treesitter/nvim-treesitter-angular" },
+  {
     "sphamba/smear-cursor.nvim",
 
     opts = {
@@ -29,6 +35,7 @@ lvim.plugins = {
     },
   },
   {
+    -- jump to characters
     'smoka7/hop.nvim',
     event = "BufRead",
     config = function()
@@ -38,18 +45,10 @@ lvim.plugins = {
     end
   },
   {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    event = "BufRead",
-  },
-  {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      require('symbols-outline').setup()
-    end
-  },
-  {
     "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    opts = {
+      auto_preview = false
+    }, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
   },
   {
@@ -60,6 +59,8 @@ lvim.plugins = {
     end,
   },
   {
+    -- Todo: Fork for improved performance
+    -- Open url in a browser
     "felipec/vim-sanegx",
     event = "BufRead",
   },
@@ -160,13 +161,8 @@ lvim.plugins = {
   {
     'Exafunction/codeium.vim',
     config = function()
-      -- Change '<C-g>' here to any keycode you like.
-      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
-        { expr = true, silent = true })
-      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
-        { expr = true, silent = true })
-      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
+      vim.keymap.set('i', '<M-c>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+      vim.keymap.set('i', '<M-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
     end
   },
   {
@@ -190,11 +186,13 @@ lvim.plugins = {
     }
   },
   {
+    -- functionality of telescope-fzy-native: fuzzy finder with native fzy library for better performance
     "nvim-telescope/telescope-fzy-native.nvim",
     build = "make",
     event = "BufRead",
   },
   {
+    -- functionality: fuzzy finder, tags, file browser, and more
     "ibhagwan/fzf-lua",
     -- optional for icon support
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -209,19 +207,163 @@ lvim.plugins = {
       require("muren").setup()
     end
   },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "marilari88/neotest-vitest",
+      'thenbe/neotest-playwright',
+      dependencies = 'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-vitest") {
+            -- Filter directories when searching for test files. Useful in large projects (see Filter directories notes).
+            filter_dir = function(name, rel_path, root)
+              return name ~= "node_modules"
+            end,
+          },
+          require('neotest-playwright').adapter({
+            options = {
+              persist_project_selection = true,
+              enable_dynamic_test_discovery = true,
+            },
+            -- Filter directories when searching for test files. Useful in large
+            -- projects (see performance notes).
+            filter_dir = function(name, rel_path, root)
+              return name ~= 'node_modules'
+            end,
+          }),
+        }
+      })
+    end
+  },
+  {
+    "NickvanDyke/opencode.nvim",
+    dependencies = {
+      -- Recommended for `ask()` and `select()`.
+      -- Required for `snacks` provider.
+      ---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
+      { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+    },
+    config = function()
+      ---@type opencode.Opts
+      vim.g.opencode_opts = {
+        -- Enhanced context for full-stack development
+        -- contexts = {
+        --   -- Include package.json for Node.js projects
+        --   package = function()
+        --     local package_json = vim.fn.findfile('package.json', '.;')
+        --     return package_json ~= '' and vim.fn.readfile(package_json) or nil
+        --   end,
+        --   -- Include API routes/docs for backend context
+        --   api_docs = function()
+        --     local api_files = vim.fn.glob('**/*api*.{js,ts,py,go,rs}', false, true)
+        --     return #api_files > 0 and api_files or nil
+        --   end,
+        --   -- Include database schema files
+        --   schema = function()
+        --     local schema_files = vim.fn.glob('**/*schema*.{sql,prisma,json}', false, true)
+        --     return #schema_files > 0 and schema_files or nil
+        --   end,
+        -- },
+        -- Custom prompts for full-stack workflows
+        prompts = {
+          api = "Create/modify API endpoint for @this following REST conventions",
+          component = "Create React/Vue component for @this with TypeScript",
+          test = "Write comprehensive tests for @this including unit and integration tests",
+          refactor = "Refactor @this for better performance and maintainability",
+          debug = "Debug @this and identify potential issues",
+          deploy = "Generate deployment configuration for @this",
+        },
+        -- Enhanced provider settings
+        provider = {
+          enabled = "snacks",
+          snacks = {
+            auto_start = true,
+            hidden = false,
+            style = {
+              border = "rounded",
+              title = "OpenCode AI Assistant",
+            },
+          },
+        },
+        -- Better event handling
+        events = {
+          reload = true,
+          notify = true,
+        },
+        -- Integration
+        lsp = {
+          enabled = true,    -- LSP integration
+          auto_start = true, -- Auto format
+        }
+      }
+
+      -- Required for `opts.events.reload`.
+      vim.o.autoread = true
+
+      -- Recommended/example keymaps.
+      vim.keymap.set({ "n", "x" }, "<M-f>", function() require("opencode").ask("@this: ", { submit = true }) end,
+        { desc = "Ask opencode" })
+      vim.keymap.set({ "n", "x" }, "<M-g>", function() require("opencode").select() end,
+        { desc = "Execute opencode action…" })
+      vim.keymap.set({ "n", "x" }, "ga", function() require("opencode").prompt("@this") end, { desc = "Add to opencode" })
+      vim.keymap.set({ "n", "t" }, "<M-q>", function() require("opencode").toggle() end, { desc = "Toggle opencode" })
+      vim.keymap.set("n", "<M-up>", function() require("opencode").command("session.half.page.up") end,
+        { desc = "opencode half page up" })
+      vim.keymap.set("n", "<M-down>", function() require("opencode").command("session.half.page.down") end,
+        { desc = "opencode half page down" })
+      vim.keymap.set("n", "<M-left>", function() require("opencode").command("session.page.up") end,
+        { desc = "opencode page left" })
+      vim.keymap.set("n", "<M-right>", function() require("opencode").command("session.page.down") end,
+        { desc = "opencode page right" })
+      -- Additional scroll controls
+      vim.keymap.set("n", "<M-k>", function() require("opencode").command("session.first") end,
+        { desc = "opencode jump to first message" })
+      vim.keymap.set("n", "<M-j>", function() require("opencode").command("session.last") end,
+        { desc = "opencode jump to last message" })
+    end,
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = { "kevinhwang91/promise-async" },
+    config = function()
+      -- Example config
+      vim.o.foldcolumn = "1"
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+      require("ufo").setup({
+        provider_selector = function(bufnr, filetype, buftype)
+          return { "treesitter", "indent" }
+        end,
+      })
+    end,
+  },
 }
 
 lvim.builtin.which_key.mappings["r"] = {
-  name = "Replace",
+  name = "Replace&Todo",
   n = { "<cmd>lua require('muren.api').toggle_ui()<cr>", "Toggle muren UI" },
   f = { "<cmd>lua require('muren.api').open_fresh_ui()<cr>", "Open fresh muren UI" },
+  -- Todo list
+  q = { "<cmd>:TodoQuickFix<cr>", "Quickfix todo comments" },
+  l = { "<cmd>:TodoTelescope<cr>", "Telescope todo comments" },
+  t = { "<cmd>:TodoTrouble<cr>", "Trouble todo comments" },
+  c = { "<cmd>:TodoLocList<cr>", "Location list todo comments" },
+  z = { "<cmd>:TodoFzfLua<cr>", "FzfLua todo comments" },
 }
 
 lvim.builtin.which_key.mappings["t"] = {
   name = "Diagnostics",
   t = { "<cmd>Trouble diagnostics toggle<cr>", "Diagnostics (Trouble)" },
   b = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Buffer Diagnostics (Trouble)" },
-  s = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)" },
+  s = { "<cmd>Trouble symbols toggle focus=true<cr>", "Symbols (Trouble)" },
   r = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Definitions / references/ ... (Trouble)" },
   l = { "<cmd>Trouble loclist toggle<cr>", "Location list (Trouble)" },
   q = { "<cmd>Trouble qflist toggle<cr>", "Quickfix List (Trouble)" },
@@ -253,7 +395,7 @@ lvim.builtin.lualine.on_config_done = function(lualine)
     "location",
     {
       function()
-        local msg = "No active cadeium"
+        local msg = "No active codeium"
         local codeium = vim.fn["codeium#GetStatusString"]()
         if codeium ~= nil then
           msg = codeium
@@ -266,12 +408,34 @@ lvim.builtin.lualine.on_config_done = function(lualine)
 
   config.sections.lualine_z = {
     "filename",
+    {
+      require("opencode").statusline,
+    },
   }
 
   lualine.setup(config)
 end
 
+lvim.builtin.nvimtree.setup.actions.open_file.quit_on_open = true -- closes the tree when you open a file.
+
 lvim.autocommands = {
+  {
+    "BufRead",
+    {
+      pattern = "*",
+      callback = function()
+        -- Close unnamed buffer when opening a file
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_is_valid(buf) and
+              vim.api.nvim_buf_get_name(buf) == "" and
+              vim.bo[buf].buflisted then
+            vim.api.nvim_buf_delete(buf, { force = true })
+            break
+          end
+        end
+      end
+    }
+  },
   {
     "BufDelete",
     {
@@ -298,6 +462,17 @@ lvim.autocommands = {
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
-    if vim.fn.argc() == 0 then require("alpha").start() end
+    if vim.fn.argc() == 0 then
+      require("alpha").start()
+    end
   end,
 })
+
+-- LSP setup
+require("lvim.lsp.manager").setup("angularls")
+
+local formatters = require "lvim.lsp.null-ls.formatters"
+
+formatters.setup {
+  { command = "markdownlint", filetypes = { "markdown" } },
+}
