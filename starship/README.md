@@ -1,0 +1,51 @@
+# Starship Configuration
+
+## Overview
+Starship is a minimal, fast, and customizable prompt for any shell. This configuration creates a beautiful, informative prompt with a gradient design.
+
+## Configuration Details
+
+### Prompt Format
+The prompt uses a custom gradient design with powerline-style separators:
+- **Background gradient**: From dark (#2f383e) to lighter (#6a777c) shades
+- **Powerline separators**: Triangle connectors (, , )
+- **Two-line layout**: Information on first line, character prompt on second
+
+### Modules Configuration
+
+#### Directory Module
+- **Style**: Green text on dark background (#a7c080 on #2f383e)
+- **Format**: Shows current path with "on" prefix
+- **Truncation**: Limited to 3 segments with "/" symbol
+
+#### Git Integration
+- **Branch**: 🌱 symbol with branch name
+- **Status**: Shows all git status indicators
+- **Colors**: Warm tones for visibility
+
+#### Development Environments
+- **Node.js**:  symbol with version (green accent)
+- **Rust**: 🦀 symbol with version (red accent)
+- **Python**: 🐍 symbol with virtual environment (purple accent)
+- **Package**: 📦 symbol with version (neutral accent)
+- **Docker**: 🐳 symbol with context (green accent)
+
+#### System Information
+- **Command Duration**: Shows execution time for commands >2s
+- **Jobs**: Shows background job count with ✦ symbol
+- **Character**: ❯ for success, ✗ for errors
+
+### Color Scheme
+Uses a carefully selected palette:
+- **Backgrounds**: Gradient from #2f383e to #6a777c
+- **Accents**: Green (#83c092), red (#e67e80), purple (#d699b6), orange (#e69875)
+- **Neutral**: Warm beige (#d3c6aa) for text
+
+### Features
+- **Newline**: Adds blank line between prompts for better readability
+- **Responsive**: Only shows relevant modules based on current context
+- **Fast**: Minimal performance impact
+- **Cross-shell**: Works with Fish, Bash, Zsh, and others
+
+## File Location
+`~/.config/starship.toml` → `~/.dotfiles/starship/starship.toml`
