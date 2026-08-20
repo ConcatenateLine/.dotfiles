@@ -9,6 +9,7 @@ set -gx PATH /home/ubuntuuser/.local/bin $PATH
 set -gx PATH /opt/nvim-linux-x86_64/bin $PATH
 set -gx PATH /usr/local/go/bin $PATH
 set -gx PATH ~/go/bin $PATH
+set -gx PATH /home/ubuntuuser/.applications/idea-2026/idea-IU-261.24374.151/bin $PATH
 
 # Load NVM and set Node path
 set -gx NVM_DIR ~/.nvm
