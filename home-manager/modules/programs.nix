@@ -22,6 +22,18 @@
       starship init fish | source
       mise activate fish | source
       fish_add_path /home/ubuntuuser/.opencode/bin
+
+      # fzf key bindings
+      if command -v fzf >/dev/null
+        if test -f /usr/share/fish/vendor_functions.d/fzf_key_bindings.fish
+          source /usr/share/fish/vendor_functions.d/fzf_key_bindings.fish
+        else if test -f ~/.fzf/shell/key-bindings.fish
+          source ~/.fzf/shell/key-bindings.fish
+        end
+      end
+
+      # Kiro shell integration
+      string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
     '';
     shellInit = ''
       set -gx PATH ~/.local/bin $PATH
@@ -30,6 +42,14 @@
       set -gx PATH ~/go/bin $PATH
       set -gx PATH ~/.bun/bin $PATH
       set -gx NVM_DIR ~/.nvm
+      set --export BUN_INSTALL "$HOME/.bun"
+      set -x DONT_PROMPT_WSL_INSTALL 1
+      set -gx PATH ~/.dotfiles/custom-scripts $PATH
+
+      # LunarVim venv
+      if test -f $HOME/.venvs/lvim/bin/activate.fish
+        source $HOME/.venvs/lvim/bin/activate.fish
+      end
     '';
     shellAbbrs = {
       ll = "ls -alF";
@@ -62,6 +82,10 @@
         plugin = continuum;
         extraConfig = "set -g @continuum-restore 'on'";
       }
+      tmux-thumbs
+      tmux-fzf
+      tmux-sessionx
+      tmux-floax
       {
         plugin = catppuccin;
         extraConfig = ''
@@ -121,9 +145,12 @@
       set -g @sessionx-bind-zo-new-window 'ctrl-y'
       set -g @sessionx-auto-accept 'off'
       set -g @sessionx-bind 'o'
+      set -g @sessionx-x-path '~/.dotfiles'
       set -g @sessionx-window-height '85%'
       set -g @sessionx-window-width '75%'
       set -g @sessionx-zoxide-mode 'eon'
+      set -g @sessionx-custom-paths-subdirectories 'false'
+      set -g @sessionx-filter-current 'false'
 
       # Floax
       set -g @floax-width '80%'
@@ -132,6 +159,9 @@
       set -g @floax-text-color 'blue'
       set -g @floax-bind 'g'
       set -g @floax-change-path 'true'
+
+      # Resurrect
+      set -g @resurrect-strategy-nvim 'session'
     '';
   };
 
@@ -150,7 +180,7 @@
       };
       git_branch = {
         symbol = " ";
-        style = "bg:#3a454a fg:#d3c6aa";
+        style = "bg:#3a454a fg:#d3caa";
         format = "[ $symbol $branch ]($style)";
       };
       git_status = {
