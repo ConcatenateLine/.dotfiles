@@ -4,6 +4,7 @@
   imports = [
     ./modules/packages.nix
     ./modules/programs.nix
+    ./modules/dotfiles.nix
   ];
 
   home.username = "ubuntuuser";
