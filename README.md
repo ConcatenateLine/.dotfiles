@@ -18,11 +18,11 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 curl https://mise.run | sh
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo tar xzf nvim-linux-x86_64.tar.gz -C /opt/
-curl -fsSL https://bun.sh/install | bash
+curl -fsSL https://bun.sh/install | bash # try AUBE: mise use -g aube
 npm i -g opencode
 
 # 4. Clone dotfiles
-git clone https://github.com/concatenateline/dotfiles ~/.dotfiles
+git clone https://github.com/concatenateline/.dotfiles ~/.dotfiles
 cd ~/.dotfiles
 
 # 5. Apply home-manager config
