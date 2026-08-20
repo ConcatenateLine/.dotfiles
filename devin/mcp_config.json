@@ -1,0 +1,66 @@
+{
+  "mcpServers": {
+    "context7": {
+      "serverUrl": "https://mcp.context7.com/mcp"
+    },
+    "devin/git": {
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "mcp/git"
+      ],
+      "command": "docker",
+      "registry": "devin/git"
+    },
+    "filesystem": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/ubuntuuser/"
+      ],
+      "command": "npx",
+      "disabled": false
+    },
+    "memory": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "command": "npx",
+      "disabled": false,
+      "env": {
+        "MEMORY_FILE_PATH": ""
+      }
+    },
+    "prisma-mcp-server": {
+      "args": [
+        "-y",
+        "prisma",
+        "mcp"
+      ],
+      "command": "npx",
+      "disabled": true
+    },
+    "sequential-thinking": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "command": "npx",
+      "disabled": false
+    },
+    "vitest": {
+      "args": [
+        "-y",
+        "@djankies/vitest-mcp"
+      ],
+      "command": "npx",
+      "disabled": true
+    },
+    "git": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/git"]
+    }
+  }
+}
