@@ -16,7 +16,7 @@ mkdir -p ~/.config
 HM_FLAKE="$DOTFILES/home-manager/flake.nix"
 if [ -f "$HM_FLAKE" ]; then
   echo "✅ Home-manager flake detected at $DOTFILES/home-manager/"
-  echo "   Run: nix run home-manager/master -- switch --flake ~/.config/home-manager"
+  echo "   Run: nix run home-manager/master -- switch --flake $DOTFILES/home-manager -b backup"
 else
   echo "⚠️  Home-manager flake not found. Using legacy symlinks..."
 

@@ -108,7 +108,7 @@ cd ~/.dotfiles
 nix run home-manager/master -- init --switch
 
 # 5.1 Apply home-manager config
-nix run home-manager/master -- switch --flake ~/.config/home-manager
+nix run home-manager/master -- switch --flake ~/.dotfiles/home-manager -b backup
 
 # 6. Reload shell
 exec $SHELL
@@ -196,7 +196,7 @@ After changing any `.nix` file:
 ```bash
 cd ~/.dotfiles
 git add -N home-manager/      # Stage new files for nix
-nix run home-manager/master -- switch --flake ~/.config/home-manager
+nix run home-manager/master -- switch --flake ~/.dotfiles/home-manager -b backup
 ```
 
 ## Legacy Mode

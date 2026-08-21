@@ -18,8 +18,10 @@
   # ── Fish ─────────────────────────────────────────────
   programs.fish = {
     enable = true;
+    plugins = [
+      { name = "bass"; src = pkgs.fishPlugins.bass; }
+    ];
     interactiveShellInit = ''
-      starship init fish | source
       mise activate fish | source
       fish_add_path /home/ubuntuuser/.opencode/bin
 
