@@ -19,6 +19,31 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
+      # Everforest color scheme (matches starship palette)
+      set -g fish_color_normal d3c6aa
+      set -g fish_color_command a7c080
+      set -g fish_color_param d3c6aa
+      set -g fish_color_keyword e67e80
+      set -g fish_color_quote dbbc7f
+      set -g fish_color_redirection d699b6
+      set -g fish_color_end 7a8478
+      set -g fish_color_error e67e80
+      set -g fish_color_comment 7a8478
+      set -g fish_color_selection --background=#4a555a
+      set -g fish_color_search_match --background=#4a555a
+      set -g fish_color_operator 83c092
+      set -g fish_color_escape d699b6
+      set -g fish_color_autosuggestion 7a8478
+      set -g fish_color_cwd a7c080
+      set -g fish_color_user 7fbbb3
+      set -g fish_color_host a7c080
+      set -g fish_color_cancel e67e80
+      set -g fish_pager_color_progress 7a8478
+      set -g fish_pager_color_prefix a7c080
+      set -g fish_pager_color_completion d3c6aa
+      set -g fish_pager_color_description 7a8478
+      set -g fish_pager_color_selected_background --background=#4a555a
+
       mise activate fish | source
 
       # fzf key bindings
@@ -159,7 +184,9 @@
     enableFishIntegration = true;
     settings = {
       add_newline = true;
-      format = "$all$nix_shell$nodejs$lua$golang$rust$php$git_branch$git_commit$git_state$git_status \n $username$hostname$directory";
+      format = "[](bg:#2f383e fg:#2f383e)$directory[](fg:#2f383e bg:#3a454a)$git_branch$git_status[](fg:#3a454a bg:#4a555a)$nodejs$rust$python$package$docker_context[](fg:#4a555a bg:#5a666b)$cmd_duration[](fg:#5a666b bg:#6a777c)$jobs[](fg:#5a666b bg:none) 
+$line_break$character
+";
       directory = {
         style = "bg:#2f383e fg:#a7c080";
         format = "[ $path on]($style)";
@@ -167,8 +194,8 @@
         truncation_symbol = "/";
       };
       git_branch = {
-        symbol = " ";
-        style = "bg:#3a454a fg:#d3caa";
+        symbol = "🌱";
+        style = "bg:#3a454a fg:#d3c6aa";
         format = "[ $symbol $branch ]($style)";
       };
       git_status = {
@@ -176,14 +203,14 @@
         format = "[ $all_status ]($style)";
       };
       nodejs = {
-        symbol = " ";
+        symbol = "";
         style = "bg:#4a555a fg:#83c092";
         format = "[ $symbol($version) ]($style) ";
       };
       rust = {
         symbol = "🦀";
         style = "bg:#4a555a fg:#e67e80";
-        format = "[ $symbol($version) ]($style)";
+        format = "[ $symbol($version) ]($style) ";
       };
       python = {
         symbol = "🐍";
@@ -199,7 +226,7 @@
       docker_context = {
         symbol = "🐳";
         style = "bg:#4a555a fg:#83c092";
-        format = "[ $symbol $context ]($style)";
+        format = "[ $symbol $context ]($style) ";
       };
       cmd_duration = {
         min_time = 2000;
