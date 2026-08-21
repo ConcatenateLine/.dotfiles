@@ -49,7 +49,7 @@
     "openpencil": {
       "type": "remote",
       "url": "http://172.17.0.2:3100/mcp",
-      "enabled": true
+      "enabled": false
     }
-  },
+  }
 }

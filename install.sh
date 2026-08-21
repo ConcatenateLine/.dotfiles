@@ -26,6 +26,7 @@ else
   ln -sf "$DOTFILES/tmux/.tmux.conf"                    ~/.tmux.conf
 
   mkdir -p ~/.config/opencode
+  rm -f ~/.config/opencode/*.json ~/.config/opencode/*.md
   for dir in agent skill themes tool; do
     [ -d ~/.config/opencode/$dir ] && rm -rf ~/.config/opencode/$dir
   done

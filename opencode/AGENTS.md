@@ -1,8 +1,6 @@
 # Context7
 
-Always use context7 when I need code generation, setup or configuration steps, or
-library/API documentation. This means you should automatically use the Context7 MCP
-tools to resolve library id and get library docs without me having to explicitly ask.
+Use context7 only when unsure about a library´s API, setup, or configuration - for example when docs may have changed since training or the API is unfamiliar. Skip it for well-known patterns to keep responses fast.
 
 ## Task Creation Template for Asana
 
