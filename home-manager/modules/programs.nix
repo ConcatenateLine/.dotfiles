@@ -144,13 +144,13 @@
       set -g pane-border-status top
 
       # Reload config
-      bind r source-file ~/.tmux.conf \; display-message "Config reloaded!"
+      bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded!"
 
       # Status bar position
       set -g status-position bottom
 
       # Pass-through for clipboard
-      set -g allow-pass-through on
+      set -g allow-passthrough on
       set -g set-clipboard on
       set -g xterm-keys on
 
