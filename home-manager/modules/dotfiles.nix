@@ -5,18 +5,6 @@ let
 in
 {
   xdg.configFile = {
-    # ── OpenCode ─────────────────────────────────────────
-    "opencode/opencode.json".source = "${dotfiles}/opencode/opencode.json";
-    "opencode/AGENTS.md".source = "${dotfiles}/opencode/AGENTS.md";
-    "opencode/tui.json".source = "${dotfiles}/opencode/tui.json";
-    "opencode/oh-my-opencode.json".source = "${dotfiles}/opencode/oh-my-opencode.json";
-    "opencode/oh-my-opencode-config.md".source = "${dotfiles}/opencode/oh-my-opencode-config.md";
-    "opencode/mcps-config.md".source = "${dotfiles}/opencode/mcps-config.md";
-    "opencode/agent".source = "${dotfiles}/opencode/agent";
-    "opencode/skill".source = "${dotfiles}/opencode/skill";
-    "opencode/themes".source = "${dotfiles}/opencode/themes";
-    "opencode/tool".source = "${dotfiles}/opencode/tool";
-
     # ── Devin ────────────────────────────────────────────
     "devin/config.json".source = "${dotfiles}/devin/config.json";
     "devin/mcp_config.json".source = "${dotfiles}/devin/mcp_config.json";
@@ -28,4 +16,22 @@ in
     # ── Kitty ────────────────────────────────────────────
     "kitty/kitty.conf".source = "${dotfiles}/kitty/kitty.conf";
   };
+
+  # ── OpenCode (copy files instead of symlinks) ───────────
+  home.activation.copyOpenCodeConfig = pkgs.lib.mkAfter ''
+    mkdir -p $HOME/.config/opencode
+    for dir in agent skill themes tool; do
+      [ -d $HOME/.config/opencode/$dir ] && rm -rf $HOME/.config/opencode/$dir
+    done
+    cp ${dotfiles}/opencode/opencode.json $HOME/.config/opencode/opencode.json
+    cp ${dotfiles}/opencode/AGENTS.md $HOME/.config/opencode/AGENTS.md
+    cp ${dotfiles}/opencode/tui.json $HOME/.config/opencode/tui.json
+    cp ${dotfiles}/opencode/oh-my-opencode.json $HOME/.config/opencode/oh-my-opencode.json
+    cp ${dotfiles}/opencode/oh-my-opencode-config.md $HOME/.config/opencode/oh-my-opencode-config.md
+    cp ${dotfiles}/opencode/mcps-config.md $HOME/.config/opencode/mcps-config.md
+    cp -r ${dotfiles}/opencode/agent $HOME/.config/opencode/agent
+    cp -r ${dotfiles}/opencode/skill $HOME/.config/opencode/skill
+    cp -r ${dotfiles}/opencode/themes $HOME/.config/opencode/themes
+    cp -r ${dotfiles}/opencode/tool $HOME/.config/opencode/tool
+  '';
 }

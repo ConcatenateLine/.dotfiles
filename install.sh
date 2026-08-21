@@ -27,18 +27,18 @@ else
 
   mkdir -p ~/.config/opencode
   for dir in agent skill themes tool; do
-    [ -d ~/.config/opencode/$dir ] && [ ! -L ~/.config/opencode/$dir ] && rm -rf ~/.config/opencode/$dir
+    [ -d ~/.config/opencode/$dir ] && rm -rf ~/.config/opencode/$dir
   done
-  ln -sf "$DOTFILES/opencode/opencode.json"             ~/.config/opencode/opencode.json
-  ln -sf "$DOTFILES/opencode/AGENTS.md"                 ~/.config/opencode/AGENTS.md
-  ln -sf "$DOTFILES/opencode/tui.json"                  ~/.config/opencode/tui.json
-  ln -sf "$DOTFILES/opencode/oh-my-opencode.json"       ~/.config/opencode/oh-my-opencode.json
-  ln -sf "$DOTFILES/opencode/oh-my-opencode-config.md"  ~/.config/opencode/oh-my-opencode-config.md
-  ln -sf "$DOTFILES/opencode/mcps-config.md"            ~/.config/opencode/mcps-config.md
-  ln -sf "$DOTFILES/opencode/agent"                     ~/.config/opencode/agent
-  ln -sf "$DOTFILES/opencode/skill"                     ~/.config/opencode/skill
-  ln -sf "$DOTFILES/opencode/themes"                    ~/.config/opencode/themes
-  ln -sf "$DOTFILES/opencode/tool"                      ~/.config/opencode/tool
+  cp "$DOTFILES/opencode/opencode.json"             ~/.config/opencode/opencode.json
+  cp "$DOTFILES/opencode/AGENTS.md"                 ~/.config/opencode/AGENTS.md
+  cp "$DOTFILES/opencode/tui.json"                  ~/.config/opencode/tui.json
+  cp "$DOTFILES/opencode/oh-my-opencode.json"       ~/.config/opencode/oh-my-opencode.json
+  cp "$DOTFILES/opencode/oh-my-opencode-config.md"  ~/.config/opencode/oh-my-opencode-config.md
+  cp "$DOTFILES/opencode/mcps-config.md"            ~/.config/opencode/mcps-config.md
+  cp -r "$DOTFILES/opencode/agent"                 ~/.config/opencode/agent
+  cp -r "$DOTFILES/opencode/skill"                 ~/.config/opencode/skill
+  cp -r "$DOTFILES/opencode/themes"                ~/.config/opencode/themes
+  cp -r "$DOTFILES/opencode/tool"                  ~/.config/opencode/tool
 
   mkdir -p ~/.config/devin
   ln -sf "$DOTFILES/devin/mcp_config.json"              ~/.config/devin/mcp_config.json
