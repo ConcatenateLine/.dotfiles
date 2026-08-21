@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgsLvim, ... }:
 
 {
   home.packages = with pkgs; [
@@ -7,11 +7,21 @@
     fzf ripgrep bat eza jq
     curl wget unzip tree htop
 
-    # Languages (nvm/mise stay alongside for version switching)
+    # Languages
     go
     docker-compose
 
     # Utilities
     lazygit
+
+    # Editors / version managers (replaces manual curl installs)
+    mise
+    opencode
+
+    # LunarVim prerequisites (installer + treesitter builds)
+    gnumake python3 nodejs rustc gcc
+
+    # Neovim pinned to 0.10.x for LunarVim nightly compatibility
+    pkgsLvim.neovim
   ];
 }

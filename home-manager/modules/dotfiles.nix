@@ -20,6 +20,9 @@ in
   # ── OpenCode (copy files instead of symlinks) ───────────
   home.activation.copyOpenCodeConfig = pkgs.lib.mkAfter ''
     mkdir -p $HOME/.config/opencode
+    # Store-copied files arrive read-only; make them writable so they can be replaced.
+    chmod -R u+w $HOME/.config/opencode 2>/dev/null || true
+    rm -f $HOME/.config/opencode/*.json $HOME/.config/opencode/*.md
     for dir in agent skill themes tool; do
       [ -d $HOME/.config/opencode/$dir ] && rm -rf $HOME/.config/opencode/$dir
     done
@@ -33,5 +36,7 @@ in
     cp -r ${dotfiles}/opencode/skill $HOME/.config/opencode/skill
     cp -r ${dotfiles}/opencode/themes $HOME/.config/opencode/themes
     cp -r ${dotfiles}/opencode/tool $HOME/.config/opencode/tool
+    # Keep writable for future runs (cp preserves the store's read-only modes).
+    chmod -R u+w $HOME/.config/opencode
   '';
 }

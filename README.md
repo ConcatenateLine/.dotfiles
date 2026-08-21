@@ -5,151 +5,68 @@ Declarative dotfiles managed with **Nix + home-manager**.
 ## Quick Start
 
 ```bash
-
-# 1. Install manual tools (see Manual Installs section below)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-
-
-# Packages for Ubuntu are available from the fish PPA, and can be installed using the following commands:
-sudo apt-add-repository ppa:fish-shell/release-4
-sudo apt update
-sudo apt install fish
-
-# Add Fish to Valid Shells: Make sure Fish is listed in /etc/shells. You can do this by running:
-echo $(command -v fish) | sudo tee -a /etc/shells
-
-# Change Default Shell
-# Run the Command: Use the following command to change your default shell to Fish:
-chsh -s $(command -v fish)
-
-# Log Out and Back In: For the changes to take effect, log out of your user account and then log back in.
-# Verification: To verify that the change was successful, open a terminal and type:
-echo $SHELL
-
-# Mise fish shell for version management
-curl https://mise.run/fish | sh
-# Installs mise and adds activation to ~/.config/fish/config.fish
-
-curl -fsSL https://bun.sh/install | bash # try AUBE: mise use -g aube
-
-# Install Starship
-# Install the latest version for your system:
-curl -sS https://starship.rs/install.sh | sh
-
-# Set up your shell to use Starship: Fish
-# Add the following to the end of ~/.config/fish/config.fish:
-starship init fish | source
-
-# Install Opencode
-curl -fsSL https://opencode.ai/install | bash
-
-# Reload shell
-exec $SHELL
-
-# Install Neovim
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-sudo tar xzf nvim-linux-x86_64.tar.gz -C /opt/
-# add nvim to fish path
-set -U fish_user_paths /opt/nvim-linux-x86_64/bin $fish_user_paths
-
-# Reload shell
-exec $SHELL
-
-# Install Lunarvim
-
-# install prerequisites with miso 
-mise use -g make
-mise use -g python
-mise use -g node
-mise use -g rust
-mise use -g ripgrep
-
-
-# install gcc with build-essential
-sudo apt install -y build-essential
-
-# Install Lunarvim in fish shell
-curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh | bash
-
-# Reload shell
-exec $SHELL
-
-## Note: LUNAR vim errors with treessitter.
-
-# 2. Install Nix (if not installed)
-# Single-user installation
-# Install Nix via the single-user installation:
-
-curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --no-daemon
-
-# Above command will perform a single-user installation of Nix, meaning that nix is owned by the invoking user. You should run this under your usual user account, not as root. The script will invoke sudo to create /nix if it doesn’t already exist.
-
-# Log Out and Back In: For the changes to take effect, log out of your user account and then log back in.
-
-# 2.1 Add the appropriate Home Manager channel. If you are following Nixpkgs master or an unstable channel you can run
-
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-
-# 2.2 Run the Home Manager installation command and create the first Home Manager generation:
-
-nix-shell '<home-manager>' -A install
-
-# 3. Enable flakes
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-
-# 4. Clone dotfiles
 git clone https://github.com/concatenateline/.dotfiles ~/.dotfiles
 cd ~/.dotfiles
-
-# 5. Prepare an initial Home Manager configuration for your logged in user, you can run the Home Manager init command directly from its flake.
-
-nix run home-manager/master -- init --switch
-
-# 5.1 Apply home-manager config
-nix run home-manager/master -- switch --flake ~/.dotfiles/home-manager -b backup
-
-# 6. Reload shell
-exec $SHELL
+./bootstrap.sh                # add --with-lvim to also install LunarVim
+exec ~/.nix-profile/bin/fish  # or log out and back in after the chsh step
 ```
+
+`bootstrap.sh` is **idempotent** — safe to re-run at any time. It:
+
+1. Installs Nix (single-user, `--no-daemon`) if missing
+2. Enables flakes in `~/.config/nix/nix.conf` if absent
+3. Clones this repo to `~/.dotfiles` (skipped when run from inside it)
+4. Applies home-manager: `nix run home-manager/master -- switch --flake ~/.dotfiles/home-manager -b backup`
+5. Adds `~/.nix-profile/bin/fish` to `/etc/shells` and sets it as your login shell (sudo-prompted)
+6. Optionally installs LunarVim (`--with-lvim`)
+
+### Flags
+
+| Flag | Effect |
+|------|--------|
+| `--no-chsh` | Skip the login-shell steps |
+| `--with-lvim` | Run the LunarVim (nightly) installer after the switch |
+| `--verbose` | Show DEBUG log lines on the console |
+| `--debug` | Bash xtrace, written to the log file only |
+| `--help` | Usage |
+
+### Logs
+
+Every run writes a timestamped log to `~/.local/state/dotfiles/bootstrap-<timestamp>.log`
+(console output is mirrored there; the last 5 logs are kept). On failure the script
+prints the failing command, line number, and exit code — check the log for details.
 
 ## What Nix Installs (automatic)
 
-**Programs + configs** — installed via `modules/packages.nix` and `modules/programs.nix`:
+**Programs + configs** — via `home-manager/modules/packages.nix` and `modules/programs.nix`:
 
 | Category | Tools |
 |----------|-------|
 | CLI | git, delta, diff-so-fancy, fzf, ripgrep, bat, eza, jq, curl, wget, unzip, tree, htop |
-| Languages | go |
+| Languages / toolchains | go, gnumake, python3, nodejs, rustc, gcc |
+| Version manager | mise |
+| Editor | neovim (pinned — see note below) |
+| AI assistant | opencode |
 | Utilities | docker-compose, lazygit |
-| Shell | tmux (with catppuccin, sensible, yank, resurrect, continuum plugins) |
-| Prompt | starship (gradient theme) |
-| Shell config | fish (PATH, nvm, mise, abbrs) |
+| Shell | fish (mise activation, PATH, abbrs), tmux (catppuccin, sensible, yank, resurrect, continuum plugins) |
+| Prompt | starship |
 
-## Manual Installs
+> **Neovim pin:** `neovim` comes from a second nixpkgs input (`nixos-24.11`, neovim
+> 0.10.x) because LunarVim nightly targets Neovim 0.10 while `nixpkgs-unstable` ships
+> 0.12. If you don't use LunarVim, swap `nixpkgs-lvim.url` in
+> `home-manager/flake.nix` back to unstable and use `pkgs.neovim`.
 
-These tools are **not managed by Nix** and must be installed separately.
+## Manual Steps
 
-### Required (before home-manager switch)
+Everything is automated except what genuinely needs your hands:
 
-| Tool | Install Command | Purpose |
-|------|----------------|---------|
-| Nix | `sh <(curl -L https://nixos.org/nix/install) --no-daemon` | Foundation for home-manager |
-| nvm | `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh \| bash` | Node version manager |
-| mise | `curl https://mise.run \| sh` | Language version manager (ruby, python, etc.) |
-| Neovim | `curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && sudo tar xzf nvim-linux-x86_64.tar.gz -C /opt/` | Text editor |
-| opencode | `npm i -g opencode` | AI coding assistant |
-| bun | `curl -fsSL https://bun.sh/install \| bash` | JS runtime/bundler |
+| Step | How | Why |
+|------|-----|-----|
+| Nix bootstrap | automatic (`bootstrap.sh`) | Foundation for home-manager |
+| Login shell | sudo prompt during `bootstrap.sh` (skip with `--no-chsh`) | `chsh`/`/etc/shells` are system-level |
+| LunarVim | `./bootstrap.sh --with-lvim` | Optional; requires nvim 0.10.x (verified automatically) |
 
-### Optional (install if you use them)
-
-| Tool | Install Command | Purpose |
-|------|----------------|---------|
-| LunarVim | `LVIM_BRANCH/master bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/master/utils/installer/install.sh)` | Neovim IDE layer |
-| Kitty | `sudo apt install kitty` or [AppImage](https://sw.kovidgoyal.net/kitty/binary/) | GPU terminal emulator |
-
-> **Note:** If these aren't installed, the config symlinks from `dotfiles.nix` are harmless but unused.
+Log out and back in after the chsh step. Verify with `echo $SHELL`.
 
 ## Config Symlinks (automatic via home-manager)
 
@@ -157,7 +74,7 @@ All config files are managed by `modules/dotfiles.nix`. No manual symlinks neede
 
 | Config | Symlink Target |
 |--------|---------------|
-| `~/.config/opencode/` | 6 files + 4 dirs → `~/.dotfiles/opencode/` |
+| `~/.config/opencode/` | copied from `~/.dotfiles/opencode/` |
 | `~/.config/devin/` | 3 files → `~/.dotfiles/devin/` |
 | `~/.config/lvim/config.lua` | → `~/.dotfiles/lvim/config.lua` |
 | `~/.config/kitty/kitty.conf` | → `~/.dotfiles/kitty/kitty.conf` |
@@ -170,23 +87,24 @@ All config files are managed by `modules/dotfiles.nix`. No manual symlinks neede
 
 ```
 dotfiles/
+├── bootstrap.sh                # Idempotent one-shot setup (with logging)
 ├── home-manager/
-│   ├── flake.nix              # Flake definition
-│   ├── flake.lock             # Pinned versions
-│   ├── home.nix               # Entry point
+│   ├── flake.nix               # Flake definition (incl. pinned nvim input)
+│   ├── flake.lock              # Pinned versions
+│   ├── home.nix                # Entry point
 │   └── modules/
-│       ├── packages.nix       # System packages
-│       ├── programs.nix       # Git, fish, tmux, starship
-│       └── dotfiles.nix       # Symlinks for opencode/devin/lvim/kitty
-├── opencode/                  # OpenCode config files
-├── devin/                     # Devin config files
-├── lvim/                      # LunarVim config
-├── kitty/                     # Kitty config
-├── fish/                      # Fish config (legacy)
-├── starship/                  # Starship config (legacy)
-├── tmux/                      # Tmux config (legacy)
-├── custom-scripts/            # Custom shell scripts
-└── install.sh                 # Fallback installer
+│       ├── packages.nix        # Packages (mise, opencode, pinned neovim, toolchains)
+│       ├── programs.nix        # Git, fish, tmux, starship
+│       └── dotfiles.nix        # Symlinks for opencode/devin/lvim/kitty
+├── opencode/                   # OpenCode config files
+├── devin/                      # Devin config files
+├── lvim/                       # LunarVim config
+├── kitty/                      # Kitty config
+├── fish/                       # Fish config (legacy)
+├── starship/                   # Starship config (legacy)
+├── tmux/                       # Tmux config (legacy)
+├── custom-scripts/             # Custom shell scripts
+└── install.sh                  # Fallback installer (legacy)
 ```
 
 ## Updating
@@ -198,6 +116,8 @@ cd ~/.dotfiles
 git add -N home-manager/      # Stage new files for nix
 nix run home-manager/master -- switch --flake ~/.dotfiles/home-manager -b backup
 ```
+
+Or simply re-run `./bootstrap.sh`.
 
 ## Legacy Mode
 

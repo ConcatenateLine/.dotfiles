@@ -18,12 +18,8 @@
   # ── Fish ─────────────────────────────────────────────
   programs.fish = {
     enable = true;
-    plugins = [
-      { name = "bass"; src = pkgs.fishPlugins.bass; }
-    ];
     interactiveShellInit = ''
       mise activate fish | source
-      fish_add_path /home/ubuntuuser/.opencode/bin
 
       # fzf key bindings
       if command -v fzf >/dev/null
@@ -33,18 +29,11 @@
           source ~/.fzf/shell/key-bindings.fish
         end
       end
-
-      # Kiro shell integration
-      string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
     '';
     shellInit = ''
       set -gx PATH ~/.local/bin $PATH
-      set -gx PATH /opt/nvim-linux-x86_64/bin $PATH
       set -gx PATH /usr/local/go/bin $PATH
       set -gx PATH ~/go/bin $PATH
-      set -gx PATH ~/.bun/bin $PATH
-      set -gx NVM_DIR ~/.nvm
-      set --export BUN_INSTALL "$HOME/.bun"
       set -x DONT_PROMPT_WSL_INSTALL 1
       set -gx PATH ~/.dotfiles/custom-scripts $PATH
 
@@ -57,9 +46,6 @@
       ll = "ls -alF";
       la = "ls -A";
       l = "ls -CF";
-    };
-    functions = {
-      nvm = "bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv";
     };
   };
 
