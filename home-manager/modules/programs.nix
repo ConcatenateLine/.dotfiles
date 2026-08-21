@@ -88,17 +88,42 @@
     baseIndex = 1;
     resizeAmount = 5;
     plugins = with pkgs.tmuxPlugins; [
-      sensible
       yank
-      resurrect
+      {
+        plugin = resurrect;
+        extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+      }
       {
         plugin = continuum;
         extraConfig = "set -g @continuum-restore 'on'";
       }
       tmux-thumbs
       tmux-fzf
-      tmux-sessionx
-      tmux-floax
+      {
+        plugin = tmux-sessionx;
+        extraConfig = ''
+          set -g @sessionx-bind-zo-new-window 'ctrl-y'
+          set -g @sessionx-auto-accept 'off'
+          set -g @sessionx-bind 'o'
+          set -g @sessionx-x-path '~/.dotfiles'
+          set -g @sessionx-window-height '85%'
+          set -g @sessionx-window-width '75%'
+          set -g @sessionx-zoxide-mode 'eon'
+          set -g @sessionx-custom-paths-subdirectories 'false'
+          set -g @sessionx-filter-current 'false'
+        '';
+      }
+      {
+        plugin = tmux-floax;
+        extraConfig = ''
+          set -g @floax-width '80%'
+          set -g @floax-height '80%'
+          set -g @floax-border-color 'magenta'
+          set -g @floax-text-color 'blue'
+          set -g @floax-bind 'g'
+          set -g @floax-change-path 'true'
+        '';
+      }
       {
         plugin = catppuccin;
         extraConfig = ''
@@ -153,28 +178,6 @@
       set -g allow-passthrough on
       set -g set-clipboard on
       set -g xterm-keys on
-
-      # SessionX
-      set -g @sessionx-bind-zo-new-window 'ctrl-y'
-      set -g @sessionx-auto-accept 'off'
-      set -g @sessionx-bind 'o'
-      set -g @sessionx-x-path '~/.dotfiles'
-      set -g @sessionx-window-height '85%'
-      set -g @sessionx-window-width '75%'
-      set -g @sessionx-zoxide-mode 'eon'
-      set -g @sessionx-custom-paths-subdirectories 'false'
-      set -g @sessionx-filter-current 'false'
-
-      # Floax
-      set -g @floax-width '80%'
-      set -g @floax-height '80%'
-      set -g @floax-border-color 'magenta'
-      set -g @floax-text-color 'blue'
-      set -g @floax-bind 'g'
-      set -g @floax-change-path 'true'
-
-      # Resurrect
-      set -g @resurrect-strategy-nvim 'session'
     '';
   };
 
