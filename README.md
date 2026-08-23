@@ -20,6 +20,30 @@ exec ~/.nix-profile/bin/fish  # or log out and back in after the chsh step
 5. Adds `~/.nix-profile/bin/fish` to `/etc/shells` and sets it as your login shell (sudo-prompted)
 6. Optionally installs LunarVim (`--with-lvim`)
 
+### ⚠️ Important: Configure Username
+
+Before running `bootstrap.sh`, you **must** update the hardcoded username `line` in the following configuration files to match your current system username:
+
+```bash
+# Get your current username
+echo $USER
+# or
+whoami
+```
+
+**Files to update:**
+- `home-manager/home.nix` - Update `home.username` and `home.homeDirectory` (lines 10-11)
+- `home-manager/flake.nix` - Update `homeConfigurations."line"` (line 16)
+- `fish/config.fish` - Update user-specific paths (lines 8, 12, 37, 41, 44)
+- `devin/mcp_config.json` - Update user-specific paths (line 20)
+- `applications/windsurf/mcp_config.json` - Update user-specific paths (line 13)
+
+**Quick find-and-replace:**
+```bash
+# Replace all occurrences of line with your username
+find ~/.dotfiles -type f -exec sed -i 's/line/YOUR_USERNAME/g' {} +
+```
+
 ### Flags
 
 | Flag | Effect |
