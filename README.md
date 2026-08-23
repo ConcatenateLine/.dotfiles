@@ -22,7 +22,7 @@ exec ~/.nix-profile/bin/fish  # or log out and back in after the chsh step
 
 ### ⚠️ Important: Configure Username
 
-Before running `bootstrap.sh`, you **must** update the hardcoded username `line` in the following configuration files to match your current system username:
+Before running `bootstrap.sh`, you **must** update the hardcoded `username` in the following configuration files to match your current system username:
 
 ```bash
 # Get your current username
