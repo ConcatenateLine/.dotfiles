@@ -23,7 +23,7 @@ in
     # Store-copied files arrive read-only; make them writable so they can be replaced.
     chmod -R u+w $HOME/.config/opencode 2>/dev/null || true
     rm -f $HOME/.config/opencode/*.json $HOME/.config/opencode/*.md
-    for dir in agent skill themes tool; do
+    for dir in agent skill themes tool tui-plugin; do
       [ -d $HOME/.config/opencode/$dir ] && rm -rf $HOME/.config/opencode/$dir
     done
     cp ${dotfiles}/opencode/opencode.json $HOME/.config/opencode/opencode.json
@@ -36,6 +36,7 @@ in
     cp -r ${dotfiles}/opencode/skill $HOME/.config/opencode/skill
     cp -r ${dotfiles}/opencode/themes $HOME/.config/opencode/themes
     cp -r ${dotfiles}/opencode/tool $HOME/.config/opencode/tool
+    cp -r ${dotfiles}/opencode/tui-plugin $HOME/.config/opencode/tui-plugin
     # Keep writable for future runs (cp preserves the store's read-only modes).
     chmod -R u+w $HOME/.config/opencode
   '';
