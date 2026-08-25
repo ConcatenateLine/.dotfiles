@@ -27,7 +27,7 @@ else
 
   mkdir -p ~/.config/opencode
   rm -f ~/.config/opencode/*.json ~/.config/opencode/*.md
-  for dir in agent skill themes tool; do
+  for dir in agent skill themes tool tui-plugin; do
     [ -d ~/.config/opencode/$dir ] && rm -rf ~/.config/opencode/$dir
   done
   cp "$DOTFILES/opencode/opencode.json"             ~/.config/opencode/opencode.json
@@ -40,6 +40,7 @@ else
   cp -r "$DOTFILES/opencode/skill"                 ~/.config/opencode/skill
   cp -r "$DOTFILES/opencode/themes"                ~/.config/opencode/themes
   cp -r "$DOTFILES/opencode/tool"                  ~/.config/opencode/tool
+  cp -r "$DOTFILES/opencode/tui-plugin"            ~/.config/opencode/tui-plugin
 
   mkdir -p ~/.config/devin
   ln -sf "$DOTFILES/devin/mcp_config.json"              ~/.config/devin/mcp_config.json

@@ -1,4 +1,12 @@
 {
   "$schema": "https://opencode.ai/tui.json",
-  "theme": "evergarden-winter"
+  "theme": "evergarden-winter",
+  "attention": {
+    "enabled": true,
+    "notifications": true,
+    "sound": true,
+    "volume": 0.4,
+    "sound_pack": "opencode.default"
+  },
+  "plugin": ["./tui-plugin/dms-notify.ts"]
 }
