@@ -7,7 +7,7 @@ Declarative dotfiles managed with **Nix + home-manager**.
 ```bash
 git clone https://github.com/concatenateline/.dotfiles ~/.dotfiles
 cd ~/.dotfiles
-./bootstrap.sh                # add --with-lvim to also install LunarVim
+./bootstrap.sh
 exec ~/.nix-profile/bin/fish  # or log out and back in after the chsh step
 ```
 
@@ -18,7 +18,6 @@ exec ~/.nix-profile/bin/fish  # or log out and back in after the chsh step
 3. Clones this repo to `~/.dotfiles` (skipped when run from inside it)
 4. Applies home-manager: `nix run home-manager/master -- switch --flake ~/.dotfiles/home-manager -b backup`
 5. Adds `~/.nix-profile/bin/fish` to `/etc/shells` and sets it as your login shell (sudo-prompted)
-6. Optionally installs LunarVim (`--with-lvim`)
 
 ### ⚠️ Important: Configure Username
 
@@ -49,7 +48,6 @@ find ~/.dotfiles -type f -exec sed -i 's/line/YOUR_USERNAME/g' {} +
 | Flag | Effect |
 |------|--------|
 | `--no-chsh` | Skip the login-shell steps |
-| `--with-lvim` | Run the LunarVim (nightly) installer after the switch |
 | `--verbose` | Show DEBUG log lines on the console |
 | `--debug` | Bash xtrace, written to the log file only |
 | `--help` | Usage |
@@ -66,19 +64,18 @@ prints the failing command, line number, and exit code — check the log for det
 
 | Category | Tools |
 |----------|-------|
-| CLI | git, delta, diff-so-fancy, fzf, ripgrep, bat, eza, jq, curl, wget, unzip, tree, htop |
+| CLI | git, delta, diff-so-fancy, fzf, ripgrep, bat, eza, jq, curl, wget, unzip, tree, htop, fd, tree-sitter |
 | Languages / toolchains | go, gnumake, python3, nodejs, rustc, gcc |
 | Version manager | mise |
-| Editor | neovim (pinned — see note below) |
+| Editor | neovim 0.12.x (LazyVim) |
 | AI assistant | opencode |
 | Utilities | docker-compose, lazygit |
 | Shell | fish (mise activation, PATH, abbrs), tmux (catppuccin, sensible, yank, resurrect, continuum plugins) |
 | Prompt | starship |
 
-> **Neovim pin:** `neovim` comes from a second nixpkgs input (`nixos-24.11`, neovim
-> 0.10.x) because LunarVim nightly targets Neovim 0.10 while `nixpkgs-unstable` ships
-> 0.12. If you don't use LunarVim, swap `nixpkgs-lvim.url` in
-> `home-manager/flake.nix` back to unstable and use `pkgs.neovim`.
+> **Neovim version:** LazyVim requires Neovim **>= 0.11.2**, so `neovim` comes from
+> `nixpkgs-unstable` (0.12.6). The `nixpkgs-lvim` input that pinned 0.10.x for
+> LunarVim has been removed.
 
 ## Manual Steps
 
@@ -88,7 +85,7 @@ Everything is automated except what genuinely needs your hands:
 |------|-----|-----|
 | Nix bootstrap | automatic (`bootstrap.sh`) | Foundation for home-manager |
 | Login shell | sudo prompt during `bootstrap.sh` (skip with `--no-chsh`) | `chsh`/`/etc/shells` are system-level |
-| LunarVim | `./bootstrap.sh --with-lvim` | Optional; requires nvim 0.10.x (verified automatically) |
+| LazyVim plugins | first `nvim` launch | lazy.nvim clones and installs the plugins on the first run |
 
 Log out and back in after the chsh step. Verify with `echo $SHELL`.
 
@@ -100,12 +97,18 @@ All config files are managed by `modules/dotfiles.nix`. No manual symlinks neede
 |--------|---------------|
 | `~/.config/opencode/` | copied from `~/.dotfiles/opencode/` |
 | `~/.config/devin/` | 3 files → `~/.dotfiles/devin/` |
-| `~/.config/lvim/config.lua` | → `~/.dotfiles/lvim/config.lua` |
+| `~/.config/nvim/` | → `~/.dotfiles/nvim/` (live symlink, see note) |
 | `~/.config/kitty/kitty.conf` | → `~/.dotfiles/kitty/kitty.conf` |
 | `~/.config/git/config` | → Nix store (generated) |
 | `~/.config/fish/config.fish` | → Nix store (generated) |
 | `~/.config/starship.toml` | → Nix store (generated) |
 | `~/.config/tmux/tmux.conf` | → Nix store (generated) |
+
+> **Why `~/.config/nvim` is a live symlink:** lazy.nvim writes `lazy-lock.json` into
+> the config directory. A Nix store copy is read-only, so the link points at the
+> repository instead and the lock file stays part of the dotfiles. The link is
+> created by an activation script (a path baked into a Nix string would be copied
+> into the store). Set `DOTFILES_REPO` if the checkout is not in `~/.dotfiles`.
 
 ## Directory Structure
 
@@ -113,16 +116,16 @@ All config files are managed by `modules/dotfiles.nix`. No manual symlinks neede
 dotfiles/
 ├── bootstrap.sh                # Idempotent one-shot setup (with logging)
 ├── home-manager/
-│   ├── flake.nix               # Flake definition (incl. pinned nvim input)
+│   ├── flake.nix               # Flake definition
 │   ├── flake.lock              # Pinned versions
 │   ├── home.nix                # Entry point
 │   └── modules/
-│       ├── packages.nix        # Packages (mise, opencode, pinned neovim, toolchains)
+│       ├── packages.nix        # Packages (mise, opencode, neovim, toolchains)
 │       ├── programs.nix        # Git, fish, tmux, starship
-│       └── dotfiles.nix        # Symlinks for opencode/devin/lvim/kitty
+│       └── dotfiles.nix        # Symlinks for opencode/devin/nvim/kitty
 ├── opencode/                   # OpenCode config files
 ├── devin/                      # Devin config files
-├── lvim/                       # LunarVim config
+├── nvim/                       # Neovim config (LazyVim)
 ├── kitty/                      # Kitty config
 ├── fish/                       # Fish config (legacy)
 ├── starship/                   # Starship config (legacy)
@@ -155,7 +158,7 @@ chmod +x install.sh
 ## Documentation
 
 - **[Fish Shell](fish/README.md)** — Shell config and functions
-- **[LunarVim](lvim/README.md)** — Neovim IDE layer
+- **[Neovim / LazyVim](nvim/README.md)** — Neovim IDE layer
 - **[Starship](starship/README.md)** — Prompt theme
 - **[Tmux](tmux/README.md)** — Terminal multiplexer
 - **[Kitty](kitty/README.md)** — Terminal emulator

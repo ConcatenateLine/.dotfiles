@@ -22,7 +22,8 @@ into `~/.config/fish/config.fish` (a symlink to the Nix store).
   handles language versions (node, python, ruby, ...)
 - **fzf**: key bindings sourced from the vendor path or `~/.fzf/shell/key-bindings.fish`
 - **Starship**: prompt initialized via home-manager (`enableFishIntegration`)
-- **LunarVim**: venv auto-activated if `$HOME/.venvs/lvim/bin/activate.fish` exists
+- **Neovim (LazyVim)**: `~/.config/nvim` is a symlink to `~/.dotfiles/nvim`, so the
+  config is always the one in this repository
 
 ### Abbreviations
 | Abbr | Expands to |

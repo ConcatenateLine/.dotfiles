@@ -124,6 +124,6 @@ opencode/
 
 ## Integration Points
 
-- **LunarVim**: Integrated via opencode.nvim plugin
+- **Neovim (LazyVim)**: Integrated via the opencode.nvim plugin (`nvim/lua/plugins/opencode.lua`)
 - **Fish Shell**: PATH configuration for custom scripts
 - **Development Tools**: Seamless integration with testing and build tools
