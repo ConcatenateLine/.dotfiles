@@ -2,7 +2,7 @@
 #
 # bootstrap.sh — idempotent one-shot setup for these dotfiles (Nix + home-manager).
 #
-# Usage: ./bootstrap.sh [--no-chsh] [--with-lvim] [--verbose] [--debug] [--help]
+# Usage: ./bootstrap.sh [--no-chsh] [--verbose] [--debug] [--help]
 #
 # Logs: ~/.local/state/dotfiles/bootstrap-<timestamp>.log (last 5 kept)
 
@@ -11,13 +11,10 @@ set -euo pipefail
 REPO_URL="https://github.com/concatenateline/.dotfiles"
 REPO_DIR=""
 NO_CHSH=false
-WITH_LVIM=false
 VERBOSE=false
 DEBUG=false
 LOG_KEEP=5
-EXPECTED_NVIM_MAJOR=0
-EXPECTED_NVIM_MINOR=10
-STEP_TOTAL=6
+STEP_TOTAL=5
 
 usage() {
   cat <<EOF
@@ -26,18 +23,16 @@ Usage: $(basename "$0") [OPTIONS]
 Idempotent bootstrap for these dotfiles (Nix + home-manager).
 
 Options:
-  --no-chsh     Skip adding fish to /etc/shells and changing the login shell
-  --with-lvim   Install LunarVim (nightly) after the home-manager switch
-  --verbose     Show DEBUG log lines on the console
-  --debug       Bash xtrace (set -x), written to the log file only
-  --help        Show this help
+  --no-csh     Skip adding fish to /etc/shells and changing the login shell
+  --verbose    Show DEBUG log lines on the console
+  --debug      Bash xtrace (set -x), written to the log file only
+  --help       Show this help
 EOF
 }
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --no-chsh)   NO_CHSH=true ;;
-    --with-lvim) WITH_LVIM=true ;;
     --verbose)   VERBOSE=true ;;
     --debug)     DEBUG=true ;;
     --help|-h)   usage; exit 0 ;;
@@ -193,27 +188,6 @@ setup_shell() {
   fi
 }
 
-install_lunarvim() {
-  if [ "$WITH_LVIM" != true ]; then
-    log INFO "--with-lvim not given — skipping LunarVim"
-    return 0
-  fi
-  if command -v lvim >/dev/null 2>&1; then
-    log INFO "lvim already installed: $(command -v lvim) — skipping"
-    return 0
-  fi
-  local major minor nvim_line
-  nvim_line="$(nvim --version | sed -n '1p')"
-  major="$(printf '%s' "$nvim_line" | sed -n 's/^NVIM v\([0-9][0-9]*\)\..*/\1/p')"
-  minor="$(printf '%s' "$nvim_line" | sed -n 's/^NVIM v[0-9][0-9]*\.\([0-9][0-9]*\).*/\1/p')"
-  if [ "$major" != "$EXPECTED_NVIM_MAJOR" ] || [ "$minor" != "$EXPECTED_NVIM_MINOR" ]; then
-    log WARN "$nvim_line is not ${EXPECTED_NVIM_MAJOR}.${EXPECTED_NVIM_MINOR}.x — skipping LunarVim install"
-    return 0
-  fi
-  log INFO "nvim ${EXPECTED_NVIM_MAJOR}.${EXPECTED_NVIM_MINOR}.x confirmed — running LunarVim nightly installer"
-  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
-}
-
 main() {
   log INFO "bootstrap started — log file: $LOG_FILE"
   step 1 "Check/install Nix" install_nix
@@ -222,7 +196,6 @@ main() {
   step 3 "Locate/clone dotfiles repo" ensure_repo
   step 4 "Apply home-manager configuration" apply_home_manager
   step 5 "Set up login shell" setup_shell
-  step 6 "Optional LunarVim install" install_lunarvim
   log INFO "All done. Open a new shell or run: exec $HOME/.nix-profile/bin/fish"
 }
 

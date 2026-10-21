@@ -21,9 +21,13 @@ else
   echo "⚠️  Home-manager flake not found. Using legacy symlinks..."
 
   ln -sf "$DOTFILES/fish/config.fish"                   ~/.config/fish/config.fish
-  ln -sf "$DOTFILES/lvim/config.lua"                    ~/.config/lvim/config.lua
   ln -sf "$DOTFILES/starship/starship.toml"             ~/.config/starship.toml
   ln -sf "$DOTFILES/tmux/.tmux.conf"                    ~/.tmux.conf
+
+  # Neovim (LazyVim): the config directory is linked to the repository so
+  # lazy.nvim can write lazy-lock.json (a nix store copy is read-only).
+  rm -rf ~/.config/nvim
+  ln -sfn "$DOTFILES/nvim"                              ~/.config/nvim
 
   mkdir -p ~/.config/opencode
   rm -f ~/.config/opencode/*.json ~/.config/opencode/*.md

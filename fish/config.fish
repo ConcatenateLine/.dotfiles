@@ -31,8 +31,6 @@ if command -v fzf >/dev/null
     end
 end
 
-source $HOME/.venvs/lvim/bin/activate.fish
-
 # Add Node.js to PATH (at the end to ensure it's not overridden)
 set -gx PATH /home/ubuntuuser/.nvm/versions/node/v22.17.0/bin $PATH
 
