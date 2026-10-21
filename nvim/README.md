@@ -30,6 +30,7 @@ nvim/
     │   ├── keymaps.lua       # keymaps (loaded on VeryLazy)
     │   └── autocmds.lua      # autocmds (loaded on VeryLazy)
     └── plugins/
+        ├── colorscheme.lua   # evergarden colorscheme (custom palette)
         └── opencode.lua      # OpenCode integration (snacks provider)
 ```
 
@@ -50,6 +51,22 @@ Sync/update explicitly:
 ```bash
 nvim --headless "+Lazy! sync" +qa
 ```
+
+## Colorscheme
+
+The editor uses [evergarden](https://github.com/evergardentheme/nvim) (variant
+`fall`, accent `green`), carried over from the previous LunarVim setup. It is
+configured in `nvim/lua/plugins/colorscheme.lua`, which also overrides
+LazyVim's `opts.colorscheme` so that the custom palette is applied instead of
+the default tokyonight.
+
+The plugin is loaded with a priority higher than LazyVim's, because LazyVim
+applies the colorscheme at the end of its own setup — the palette has to be
+stored first.
+
+The same evergarden palette is used by the terminal
+(`windows/Users/username/.wezterm.lua`) and by the OpenCode TUI
+(`evergarden-winter`, see `opencode/themes/`).
 
 ## Adding plugins
 

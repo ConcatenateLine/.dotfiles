@@ -67,7 +67,7 @@ prints the failing command, line number, and exit code — check the log for det
 | CLI | git, delta, diff-so-fancy, fzf, ripgrep, bat, eza, jq, curl, wget, unzip, tree, htop, fd, tree-sitter |
 | Languages / toolchains | go, gnumake, python3, nodejs, rustc, gcc |
 | Version manager | mise |
-| Editor | neovim 0.12.x (LazyVim) |
+| Editor | neovim 0.12.x (LazyVim, evergarden theme) |
 | AI assistant | opencode |
 | Utilities | docker-compose, lazygit |
 | Shell | fish (mise activation, PATH, abbrs), tmux (catppuccin, sensible, yank, resurrect, continuum plugins) |
