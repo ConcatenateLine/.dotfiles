@@ -1,4 +1,4 @@
-{ pkgs, pkgsLvim, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -18,10 +18,13 @@
     mise
     opencode
 
-    # LunarVim prerequisites (installer + treesitter builds)
+    # LazyVim prerequisites (treesitter parser builds)
     gnumake python3 nodejs rustc gcc
 
-    # Neovim pinned to 0.10.x for LunarVim nightly compatibility
-    pkgsLvim.neovim
+    # LazyVim: tree-sitter CLI (nvim-treesitter main branch) + fd (file finding)
+    tree-sitter fd
+
+    # Neovim (LazyVim requires >= 0.11.2; unstable ships 0.12.x)
+    neovim
   ];
 }

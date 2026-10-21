@@ -10,12 +10,36 @@ in
     "devin/mcp_config.json".source = "${dotfiles}/devin/mcp_config.json";
     "devin/global_rules.md".source = "${dotfiles}/devin/global_rules.md";
 
-    # ── LunarVim ─────────────────────────────────────────
-    "lvim/config.lua".source = "${dotfiles}/lvim/config.lua";
-
     # ── Kitty ────────────────────────────────────────────
     "kitty/kitty.conf".source = "${dotfiles}/kitty/kitty.conf";
   };
+
+  # ── Neovim (LazyVim) ─────────────────────────────────────
+  # ~/.config/nvim has to point at the repository instead of a nix store
+  # copy: lazy.nvim writes lazy-lock.json into the config directory and
+  # store paths are read-only. The link is created here (and not through
+  # xdg.configFile) because nix copies every absolute path found in a
+  # derivation string into the store.
+  #
+  # The checkout is expected in ~/.dotfiles (see README/bootstrap.sh).
+  # Set DOTFILES_REPO to use a different location.
+  home.activation.linkNvimConfig = pkgs.lib.mkAfter ''
+    repo="''${DOTFILES_REPO:-$HOME/.dotfiles}"
+    target="$HOME/.config/nvim"
+    link="''$repo/nvim"
+
+    mkdir -p "$HOME/.config"
+
+    if [ -L "$target" ]; then
+      rm -f "$target"
+    elif [ -e "$target" ]; then
+      echo "Backing up $target to $target.backup"
+      rm -rf "$target.backup"
+      mv "$target" "$target.backup"
+    fi
+
+    ln -sfn "$link" "$target"
+  '';
 
   # ── OpenCode (copy files instead of symlinks) ───────────
   home.activation.copyOpenCodeConfig = pkgs.lib.mkAfter ''

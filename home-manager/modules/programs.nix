@@ -61,11 +61,6 @@
       set -gx PATH ~/go/bin $PATH
       set -x DONT_PROMPT_WSL_INSTALL 1
       set -gx PATH ~/.dotfiles/custom-scripts $PATH
-
-      # LunarVim venv
-      if test -f $HOME/.venvs/lvim/bin/activate.fish
-        source $HOME/.venvs/lvim/bin/activate.fish
-      end
     '';
     shellAbbrs = {
       ll = "ls -alF";
