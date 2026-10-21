@@ -1,0 +1,53 @@
+{
+  "shots": [
+    {
+      "name": "01-login",
+      "path": "/login",
+      "delay": 800
+    },
+    {
+      "name": "02-people-list",
+      "path": "/dashboard",
+      "wait": "table tbody tr",
+      "delay": 1200
+    },
+    {
+      "name": "03-search-filter",
+      "path": "/dashboard",
+      "wait": "table tbody tr",
+      "type": [
+        {
+          "selector": "input[placeholder='Search']",
+          "text": "marcus",
+          "waitFor": "table tbody tr",
+          "settle": 1800
+        }
+      ]
+    },
+    {
+      "name": "04-add-user",
+      "path": "/users/new",
+      "wait": ".gm-style img",
+      "delay": 1200
+    },
+    {
+      "name": "05-places-autocomplete",
+      "path": "/users/new",
+      "wait": ".gm-style img",
+      "type": [
+        {
+          "selector": "input[placeholder^='Search an address']",
+          "text": "Calle de Alcala",
+          "waitFor": ".pac-item",
+          "settle": 2500
+        }
+      ]
+    },
+    {
+      "name": "06-edit-user",
+      "path": "/users/cmvhtme020002s15fdvmtyzox/edit",
+      "wait": ".gm-style img",
+      "delay": 2000
+    }
+  ]
+}

@@ -3,3 +3,4 @@ opencode/.gitignore
 opencode/bun.lock
 opencode/package.json
 opencode/package-lock.json
+custom-scripts/node_modules
