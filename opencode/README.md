@@ -79,8 +79,9 @@ opencode/
 ├── .gitignore              # Git ignore rules
 ├── AGENTS.md               # Agent documentation and templates
 ├── README.md               # This file
-├── agent/                  # Agent configurations (empty)
+├── agent/                  # Agent configurations (18 agents)
 ├── bun.lock               # Bun package manager lock file
+├── commands/               # Slash commands (9 commands)
 ├── mcps-config.md         # MCP server configurations
 ├── node_modules/          # Node.js dependencies
 ├── oh-my-opencode-config.md # Plugin configuration reference
@@ -88,7 +89,8 @@ opencode/
 ├── opencode.json          # Main OpenCode configuration
 ├── package-lock.json      # npm lock file
 ├── package.json           # npm package configuration
-├── skill/                 # Skill definitions (empty)
+├── references/             # Shared checklists and pattern references
+├── skill/                 # Skill definitions (26 skills)
 ├── test-add.js           # Test utility script
 └── themes/               # Theme configurations (empty)
 ```
