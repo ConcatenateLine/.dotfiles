@@ -42,7 +42,7 @@
       "command": [
         "npx",
         "-y",
-        "@djankies/vitest-mcp",
+        "@djankies/vitest-mcp"
       ],
       "enabled": false
     },
@@ -50,6 +50,12 @@
       "type": "remote",
       "url": "http://172.17.0.2:3100/mcp",
       "enabled": false
+    }
+  },
+  "plugins": {
+    "local-tools": {
+      "enabled": true,
+      "path": "./tool"
     }
   }
 }

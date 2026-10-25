@@ -87,7 +87,7 @@ due_date = today + (story_points × 2 business days)
 ## Technical Notes 
 - Use Prisma for token storage with expiration  
 - Configure SMTP service for email delivery  
-- Follow project’s error response format (no stacktrace)
+- Follow project's error response format (no stacktrace)
 
 ## Test Cases
 - Should fail if token is invalid  
@@ -139,3 +139,18 @@ Acceptance Criteria:
 
 Technical Notes: [implementation details]
 ```
+
+## Tool Usage Policy (MANDATORY)
+
+**Priority order:** Direct tools > Custom tools (OpenCode/MCP) > Code Mode/MCP scripting via `execute` > Reusable shell scripts > `shell` only as a last resort.
+
+### Rules
+- **Never use shell for file I/O.** Do not use `echo`, `printf`, `cat`, `tee`, `>`, `>>`, or heredocs to create/edit/read files. Use `write`, `edit`, or `read` instead.
+- **Never use shell for file discovery/search.** Do not use `find`, `ls` (for discovery), `grep`/`rg` via shell. Use `glob` and `grep` tools instead.
+- **Tools first.** Before reaching for `shell`, check direct tools and any available custom tools (local `.opencode/tools/`, MCP, or plugins).
+- **Custom tools over scripts.** If you find yourself writing the same multi-step logic more than once, **create a custom tool** with a schema and clear description. This is preferred over leaving a shell script for the agent to remember to call.
+- **Scripts as fallback.** Only create a standalone shell script if defining a custom tool is impractical right now. If you do, document it clearly and prefer calling it via a custom tool wrapper later.
+- **Shell only when necessary.** Acceptable uses: `git` operations, package managers (`npm/pnpm/yarn/bun`, `pip`, `cargo`, `go`), running tests/builds/dev servers, system processes, or operations with no tool/custom tool equivalent. Use `workdir`, `timeout`, and `background: true` when appropriate.
+- **No chaining to hide failures.** Avoid `cmd1 && cmd2 || true`, `set +e`, etc. Understand and fix the root cause.
+- **Write files correctly.** Use `write` to create/replace entire files; use `edit` for targeted changes. Never reconstruct file contents via shell concatenation.
+- **Respect permissions.** Tools may require approval based on permissions; follow the rules in OpenCode permissions. Paths outside the active worktree may be checked against `external_directory`.
