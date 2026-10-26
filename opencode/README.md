@@ -8,10 +8,17 @@ OpenCode configuration directory containing AI assistant setup, MCP servers, age
 ### Core Configuration
 
 #### `opencode.json`
-Main OpenCode configuration with:
-- **Theme**: evergarden-winter
-- **Auto-update**: Enabled
-- **MCP Servers**: Multiple Model Context Protocol servers configured
+Main OpenCode **V2 server** configuration with:
+- **Auto-update**: Enabled (`"update": "auto"`)
+- **Permissions**: `pkg` tool action set to `ask`
+- **MCP Servers**: Model Context Protocol servers under `mcp.servers`
+
+#### `cli.json`
+OpenCode **V2 client** (TUI) configuration: theme, plugins, attention/notifications,
+diff wrapping, sidebar and tab behavior. Replaces the V1 `tui.json`.
+
+> **Version pin:** `@opencode/plugin` in `package.json` must match the installed
+> CLI exactly (`opencode --version`). `npm run typecheck` fails when they drift.
 
 #### `oh-my-opencode.json`
 Extended OpenCode configuration with:
@@ -22,12 +29,14 @@ Extended OpenCode configuration with:
 
 #### Active Servers
 - **context7**: Remote documentation and code examples server (enabled)
+- **codegraph**: Local code knowledge graph server (enabled)
 
 #### Available but Disabled
 - **vibe_kanban**: Project management via npx vibe-kanban
 - **playwright**: Testing framework integration
 - **angular-cli**: Angular CLI MCP server
 - **vitest**: Vitest testing framework MCP server
+- **openpencil**: Remote design MCP server
 
 ### Agent Configuration
 
@@ -50,11 +59,39 @@ Extended OpenCode configuration with:
   - Priority: 10
   - Command: `typescript-language-server --stdio`
 
+### Custom Tools (V2 Plugins)
+
+V1 `tool/*.ts` files are gone. Custom tools are **plugins**, auto-discovered from
+`~/.config/opencode/plugins/<plugin-id>/index.ts`.
+
+#### `pkg` — reference implementation
+
+`plugins/local-tools/index.ts` registers one tool, `pkg`, with two actions:
+
+| Action | Permission | Purpose |
+|--------|-----------|---------|
+| `detect` | none (read-only) | Report package manager, lockfile, and scripts for the session directory |
+| `run` | `pkg` (asks) | Run a `package.json` script with the detected manager |
+
+It demonstrates the rules that matter:
+
+- cwd comes from `ctx.session.get(...).location.directory`, never `process.cwd()`
+- `execFile(pm, argv)` — no shell string interpolation
+- `timeout`, `maxBuffer`, and `signal: context.signal` set on every run
+- mutations call `ctx.permission.assert({ action: "pkg", ... })`, which is covered
+  by the `permissions` rule in `opencode.json`
+
+To add a tool: copy this plugin's shape, follow the checklist in `AGENTS.md`, then
+run `npm run typecheck` before deploying.
+
 ### Development Tools
 
-#### Package Management
-- **Node.js**: Package configuration with lock files
-- **Bun**: Alternative package manager support
+#### Type checking
+```bash
+cd opencode
+npm install
+npm run typecheck   # tsc --noEmit + plugin/CLI version pin check
+```
 
 #### Testing
 - **test-add.js**: Test utility script
@@ -76,23 +113,27 @@ Comprehensive agent documentation including:
 
 ```
 opencode/
-├── .gitignore              # Git ignore rules
 ├── AGENTS.md               # Agent documentation and templates
 ├── README.md               # This file
 ├── agent/                  # Agent configurations (18 agents)
-├── bun.lock               # Bun package manager lock file
+├── cli.json                # V2 client (TUI) configuration
 ├── commands/               # Slash commands (9 commands)
-├── mcps-config.md         # MCP server configurations
-├── node_modules/          # Node.js dependencies
+├── mcps-config.md          # MCP server configurations
+├── node_modules/           # Node.js dependencies (dev only)
 ├── oh-my-opencode-config.md # Plugin configuration reference
-├── oh-my-opencode.json    # Extended OpenCode configuration
-├── opencode.json          # Main OpenCode configuration
-├── package-lock.json      # npm lock file
-├── package.json           # npm package configuration
+├── oh-my-opencode.json     # Extended OpenCode configuration
+├── opencode.json           # V2 server configuration + permissions
+├── package-lock.json       # npm lock file
+├── package.json            # Dev deps + typecheck / verify scripts
+├── plugins/
+│   └── local-tools/        # V2 plugin tools (pkg)
 ├── references/             # Shared checklists and pattern references
-├── skill/                 # Skill definitions (26 skills)
-├── test-add.js           # Test utility script
-└── themes/               # Theme configurations (empty)
+├── scripts/
+│   └── verify-pin.mjs      # CLI / @opencode/plugin version guard
+├── skill/                  # Skill definitions (26 skills)
+├── test-add.js             # Test utility script
+├── tsconfig.json           # Typecheck config for plugins/
+└── themes/                 # Theme configurations
 ```
 
 ## Key Features

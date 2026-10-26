@@ -142,15 +142,46 @@ Technical Notes: [implementation details]
 
 ## Tool Usage Policy (MANDATORY)
 
-**Priority order:** Direct tools > Custom tools (OpenCode/MCP) > Code Mode/MCP scripting via `execute` > Reusable shell scripts > `shell` only as a last resort.
+**Priority order:** Built-in tools > MCP tools > plugin tools (repeated actions only) > Code Mode via `execute` > reusable shell scripts > `shell` only as a last resort.
 
 ### Rules
 - **Never use shell for file I/O.** Do not use `echo`, `printf`, `cat`, `tee`, `>`, `>>`, or heredocs to create/edit/read files. Use `write`, `edit`, or `read` instead.
 - **Never use shell for file discovery/search.** Do not use `find`, `ls` (for discovery), `grep`/`rg` via shell. Use `glob` and `grep` tools instead.
-- **Tools first.** Before reaching for `shell`, check direct tools and any available custom tools (local `.opencode/tools/`, MCP, or plugins).
-- **Custom tools over scripts.** If you find yourself writing the same multi-step logic more than once, **create a custom tool** with a schema and clear description. This is preferred over leaving a shell script for the agent to remember to call.
-- **Scripts as fallback.** Only create a standalone shell script if defining a custom tool is impractical right now. If you do, document it clearly and prefer calling it via a custom tool wrapper later.
+- **Built-ins first.** `read`, `write`, `edit`, `glob`, `grep`, and `shell` already have permissions, output truncation, and timeouts. Do not wrap them in a custom tool.
+- **Tools must earn their place.** Create a plugin tool only under the conditions in "Custom tools (OpenCode V2)" below. One-off commands and scripts belong in `shell`.
 - **Shell only when necessary.** Acceptable uses: `git` operations, package managers (`npm/pnpm/yarn/bun`, `pip`, `cargo`, `go`), running tests/builds/dev servers, system processes, or operations with no tool/custom tool equivalent. Use `workdir`, `timeout`, and `background: true` when appropriate.
 - **No chaining to hide failures.** Avoid `cmd1 && cmd2 || true`, `set +e`, etc. Understand and fix the root cause.
 - **Write files correctly.** Use `write` to create/replace entire files; use `edit` for targeted changes. Never reconstruct file contents via shell concatenation.
 - **Respect permissions.** Tools may require approval based on permissions; follow the rules in OpenCode permissions. Paths outside the active worktree may be checked against `external_directory`.
+
+## Custom tools (OpenCode V2)
+
+Create a plugin tool when **all three** are true:
+
+1. The action repeats across sessions or projects (you have typed it more than once).
+2. No built-in tool already does it.
+3. It is deterministic and scriptable — not interactive, not long-running.
+
+Never create a tool for a one-off command, a shell-string wrapper, or a dev server/watch process. Use `shell` with `background: true` for those.
+
+### Reference implementation
+
+`~/.config/opencode/plugins/local-tools/index.ts` (source: `dotfiles/opencode/plugins/local-tools/index.ts`) is the template. Follow its shape.
+
+### Checklist (all required)
+
+- `export default { id, setup }` at `~/.config/opencode/plugins/<plugin-id>/index.ts`, sourced from the dotfiles repo.
+- No runtime imports beyond `node:*`. Import plugin types with `import type` so the deployed file needs no `node_modules`.
+- Declare the input as JSON Schema and validate/narrow it in code.
+- Resolve the working directory from `ctx.session.get({ sessionID }).location.directory` — never `process.cwd()`.
+- Execute with `execFile(command, args)` — never a shell string. Set `timeout`, `maxBuffer`, and `signal: context.signal`.
+- Every mutation calls `ctx.permission.assert({ action, resources, save, source })`. Use a plugin-specific action (e.g. `pkg`) plus a matching rule in `opencode.json`, so it prompts independently of `shell`.
+- Return `{ content }` (plus `metadata` when useful); throw a real `Error` on failure instead of returning error text.
+- Register with `ctx.tool.transform((editor) => editor.add({ ... }))`.
+
+### Verify before committing
+
+1. `npm run typecheck` in `dotfiles/opencode` (also checks the SDK pin matches the CLI).
+2. `opencode plugin list` shows the plugin after deploy.
+3. One real call in a new session returns the expected output.
+4. A mutation prompts for permission, and "always" saves only the approved command.
