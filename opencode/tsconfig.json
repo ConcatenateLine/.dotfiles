@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "lib": ["ES2022"],
     "strict": true,
     "skipLibCheck": true,
+    "noEmit": true,
     "types": ["node"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true
   },
-  "include": ["tool/**/*.ts"]
+  "include": ["plugins/**/*.ts"]
 }

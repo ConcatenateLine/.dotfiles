@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit && node scripts/verify-pin.mjs",
+    "verify": "node scripts/verify-pin.mjs"
+  },
+  "devDependencies": {
+    "@opencode/plugin": "2.1.1",
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  }
+}
