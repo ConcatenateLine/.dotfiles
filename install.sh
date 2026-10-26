@@ -30,23 +30,31 @@ else
   ln -sfn "$DOTFILES/nvim"                              ~/.config/nvim
 
   mkdir -p ~/.config/opencode
-  rm -f ~/.config/opencode/*.json ~/.config/opencode/*.md
+  # Only remove files we manage; service.json holds the local server password.
+  rm -f ~/.config/opencode/opencode.json ~/.config/opencode/tui.json \
+        ~/.config/opencode/opencode.jsonc \
+        ~/.config/opencode/AGENTS.md ~/.config/opencode/oh-my-opencode-config.md \
+        ~/.config/opencode/mcps-config.md
+  # `tool` stays in the wipe list so stale V1 tools are removed on upgrade.
   for dir in agent skill themes tool tui-plugin commands references; do
     [ -d ~/.config/opencode/$dir ] && rm -rf ~/.config/opencode/$dir
   done
   cp "$DOTFILES/opencode/opencode.json"             ~/.config/opencode/opencode.json
   cp "$DOTFILES/opencode/AGENTS.md"                 ~/.config/opencode/AGENTS.md
-  cp "$DOTFILES/opencode/tui.json"                  ~/.config/opencode/tui.json
+  cp "$DOTFILES/opencode/cli.json"                  ~/.config/opencode/cli.json
   cp "$DOTFILES/opencode/oh-my-opencode.json"       ~/.config/opencode/oh-my-opencode.json
   cp "$DOTFILES/opencode/oh-my-opencode-config.md"  ~/.config/opencode/oh-my-opencode-config.md
   cp "$DOTFILES/opencode/mcps-config.md"            ~/.config/opencode/mcps-config.md
   cp -r "$DOTFILES/opencode/agent"                 ~/.config/opencode/agent
   cp -r "$DOTFILES/opencode/skill"                 ~/.config/opencode/skill
   cp -r "$DOTFILES/opencode/themes"                ~/.config/opencode/themes
-  cp -r "$DOTFILES/opencode/tool"                  ~/.config/opencode/tool
   cp -r "$DOTFILES/opencode/tui-plugin"            ~/.config/opencode/tui-plugin
   cp -r "$DOTFILES/opencode/commands"              ~/.config/opencode/commands
   cp -r "$DOTFILES/opencode/references"            ~/.config/opencode/references
+  # Only manage our own plugin dir; other plugins in plugins/ stay untouched.
+  mkdir -p ~/.config/opencode/plugins
+  rm -rf ~/.config/opencode/plugins/local-tools
+  cp -r "$DOTFILES/opencode/plugins/local-tools"   ~/.config/opencode/plugins/local-tools
 
   mkdir -p ~/.config/devin
   ln -sf "$DOTFILES/devin/mcp_config.json"              ~/.config/devin/mcp_config.json

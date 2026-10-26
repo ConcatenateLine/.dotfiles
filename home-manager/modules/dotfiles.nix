@@ -46,23 +46,31 @@ in
     mkdir -p $HOME/.config/opencode
     # Store-copied files arrive read-only; make them writable so they can be replaced.
     chmod -R u+w $HOME/.config/opencode 2>/dev/null || true
-    rm -f $HOME/.config/opencode/*.json $HOME/.config/opencode/*.md
+    # Only remove files we manage; service.json holds the local server password.
+    rm -f $HOME/.config/opencode/opencode.json $HOME/.config/opencode/tui.json \
+          $HOME/.config/opencode/opencode.jsonc \
+          $HOME/.config/opencode/AGENTS.md $HOME/.config/opencode/oh-my-opencode-config.md \
+          $HOME/.config/opencode/mcps-config.md
+    # `tool` stays in the wipe list so stale V1 tools are removed on upgrade.
     for dir in agent skill themes tool tui-plugin commands references; do
       [ -d $HOME/.config/opencode/$dir ] && rm -rf $HOME/.config/opencode/$dir
     done
     cp ${dotfiles}/opencode/opencode.json $HOME/.config/opencode/opencode.json
     cp ${dotfiles}/opencode/AGENTS.md $HOME/.config/opencode/AGENTS.md
-    cp ${dotfiles}/opencode/tui.json $HOME/.config/opencode/tui.json
+    cp ${dotfiles}/opencode/cli.json $HOME/.config/opencode/cli.json
     cp ${dotfiles}/opencode/oh-my-opencode.json $HOME/.config/opencode/oh-my-opencode.json
     cp ${dotfiles}/opencode/oh-my-opencode-config.md $HOME/.config/opencode/oh-my-opencode-config.md
     cp ${dotfiles}/opencode/mcps-config.md $HOME/.config/opencode/mcps-config.md
     cp -r ${dotfiles}/opencode/agent $HOME/.config/opencode/agent
     cp -r ${dotfiles}/opencode/skill $HOME/.config/opencode/skill
     cp -r ${dotfiles}/opencode/themes $HOME/.config/opencode/themes
-    cp -r ${dotfiles}/opencode/tool $HOME/.config/opencode/tool
     cp -r ${dotfiles}/opencode/tui-plugin $HOME/.config/opencode/tui-plugin
     cp -r ${dotfiles}/opencode/commands $HOME/.config/opencode/commands
     cp -r ${dotfiles}/opencode/references $HOME/.config/opencode/references
+    # Only manage our own plugin dir; other plugins in plugins/ stay untouched.
+    mkdir -p $HOME/.config/opencode/plugins
+    rm -rf $HOME/.config/opencode/plugins/local-tools
+    cp -r ${dotfiles}/opencode/plugins/local-tools $HOME/.config/opencode/plugins/local-tools
     # Keep writable for future runs (cp preserves the store's read-only modes).
     chmod -R u+w $HOME/.config/opencode
   '';

@@ -1,61 +1,72 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "theme": "evergarden-winter",
-  "autoupdate": true,
-  "mcp": {
-    "vibe_kanban": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "vibe-kanban@latest",
-        "--mcp"
-      ],
-      "enabled": false
-    },
-    "playwright": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@playwright/mcp@latest"
-      ],
-      "enabled": false
-    },
-    "angular-cli": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@angular/cli",
-        "mcp"
-      ],
-      "enabled": false
-    },
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "enabled": true
-    },
-    "vitest": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@djankies/vitest-mcp"
-      ],
-      "enabled": false
-    },
-    "openpencil": {
-      "type": "remote",
-      "url": "http://172.17.0.2:3100/mcp",
-      "enabled": false
+  "update": "auto",
+  "permissions": [
+    {
+      "action": "pkg",
+      "resource": "*",
+      "effect": "ask"
     }
-  },
-  "plugins": {
-    "local-tools": {
-      "enabled": true,
-      "path": "./tool"
+  ],
+  "mcp": {
+    "servers": {
+      "vibe_kanban": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "vibe-kanban@latest",
+          "--mcp"
+        ],
+        "disabled": true
+      },
+      "playwright": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@playwright/mcp@latest"
+        ],
+        "disabled": true
+      },
+      "angular-cli": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@angular/cli",
+          "mcp"
+        ],
+        "disabled": true
+      },
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "disabled": false
+      },
+      "vitest": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@djankies/vitest-mcp"
+        ],
+        "disabled": true
+      },
+      "openpencil": {
+        "type": "remote",
+        "url": "http://172.17.0.2:3100/mcp",
+        "disabled": true
+      },
+      "codegraph": {
+        "type": "local",
+        "command": [
+          "codegraph",
+          "serve",
+          "--mcp"
+        ],
+        "disabled": false
+      }
     }
   }
 }
